@@ -39,10 +39,10 @@ model {
 
             sources.cpp {
                 source {
-                    srcDir 'src/main/cpp'
+                    srcDir 'src/'
                 }
                 exportedHeaders {
-                    srcDir 'src/main/include'
+                    srcDir 'src/'
                 }
             }
 

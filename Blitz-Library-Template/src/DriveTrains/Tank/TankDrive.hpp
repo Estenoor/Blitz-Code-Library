@@ -6,9 +6,9 @@
 #include "DriveTrains/DriveInterface.hpp"
 #include "BlitzLogger/BlitzLogger.hpp"
 
+using namespace std;
 using namespace Blitz;
 using namespace Blitz::Models;
-using namespace std;
 
 namespace Blitz
 {
@@ -21,7 +21,7 @@ namespace Blitz
                 this->DriveTrain = DriveTrain;
             }
 
-            void Initialize(ArcadeInput *Input, BlitzLogger *Logger);
+            void Initialize(TankInput *Input);
             void Run();
             void Close();
 

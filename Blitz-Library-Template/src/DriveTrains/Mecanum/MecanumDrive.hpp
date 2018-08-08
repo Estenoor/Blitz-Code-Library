@@ -29,6 +29,7 @@ namespace Blitz
             
             
         private:
+            MecanumInput *InputData;
             BlitzLogger *Logger; 
             DriveMotors *DriveTrain;
     };
