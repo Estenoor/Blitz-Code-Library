@@ -1,7 +1,8 @@
 #ifndef SRC_DRIVETRAINS_DRIVEINTERFACE_HPP
 #define SRC_DRIVETRAINS_DRIVEINTERFACE_HPP
 
-#include "Models/ModelTypes.hpp"
+#include <WPILib.h>
+#include "DataTypes.hpp"
 
 namespace Blitz
 {

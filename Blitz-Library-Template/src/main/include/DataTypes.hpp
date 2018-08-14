@@ -1,7 +1,8 @@
 #ifndef SRC_DATATYPES_HPP
 #define SRC_DATATYPES_HPP
 
-#include "WPILib.h"
+#include <WPILib.h>
+#include <WPI_TalonSRX.h>
 
 namespace Blitz
 {

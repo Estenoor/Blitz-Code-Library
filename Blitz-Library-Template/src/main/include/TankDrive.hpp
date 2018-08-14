@@ -3,8 +3,8 @@
 
 #include <WPILib.h>
 
-#include "DriveTrains/DriveInterface.hpp"
-#include "BlitzLogger/BlitzLogger.hpp"
+#include "DriveInterface.hpp"
+#include "BlitzLogger.hpp"
 
 using namespace std;
 using namespace Blitz;
