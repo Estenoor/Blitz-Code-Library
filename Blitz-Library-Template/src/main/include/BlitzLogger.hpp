@@ -8,7 +8,6 @@
 #ifndef SRC_BLITZLOGGER_HPP_
 #define SRC_BLITZLOGGER_HPP_
 
-#include <WPILib.h>
 #include <iostream>
 #include <fstream>
 
