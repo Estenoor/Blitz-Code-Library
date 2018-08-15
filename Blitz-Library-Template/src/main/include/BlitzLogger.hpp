@@ -8,6 +8,7 @@
 #ifndef SRC_BLITZLOGGER_HPP_
 #define SRC_BLITZLOGGER_HPP_
 
+
 #include <iostream>
 #include <fstream>
 

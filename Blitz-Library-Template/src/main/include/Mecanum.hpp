@@ -17,7 +17,7 @@ namespace Blitz
     {
 
         public:
-            MecanumDrive(DriveMotors *DriveTrain,  BlitzLogger *Logger)
+            MecanumDrive(Blitz::Models::DriveMotors *DriveTrain,  Blitz::BlitzLogger *Logger)
             {
                 this->Logger = Logger;
                 this->DriveTrain = DriveTrain;
@@ -31,7 +31,7 @@ namespace Blitz
         private:
             MecanumInput *InputData;
             BlitzLogger *Logger; 
-            DriveMotors *DriveTrain;
+            Blitz::DriveMotors *DriveTrain;
     };
 }
 

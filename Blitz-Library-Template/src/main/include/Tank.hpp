@@ -15,7 +15,7 @@ namespace Blitz
     class Tank : DriveInterface
     {
         public:
-            TankDrive(DriveMotors DriveTrain,  BlitzLogger *Logger)
+            Tank(Blitz::Models::DriveMotors DriveTrain,  Blitz::BlitzLogger *Logger)
             {
                 this->Logger = Logger;
                 this->DriveTrain = DriveTrain;

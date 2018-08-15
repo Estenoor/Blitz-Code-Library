@@ -2,28 +2,30 @@
 #define SRC_DATATYPES_HPP
 
 #include <WPILib.h>
-#include <WPI_TalonSRX.h>
+#include <ctre/Phoenix.h>
 
 namespace Blitz
 {
     namespace Models 
-    {
+    { 
         //The 4 Motors For the Drive Train
         class DriveMotors
         {
             public:
-                WPI_TalonSRX Motor1; // Front Left
-                WPI_TalonSRX Motor2; // Front Right
-                WPI_TalonSRX Motor3; // Back Left
-                WPI_TalonSRX Motor4; // Back Right
+                WPI_TalonSRX * Motor1; // Front Left
+                WPI_TalonSRX * Motor2; // Front Right
+                WPI_TalonSRX * Motor3; // Back Left
+                WPI_TalonSRX * Motor4; // Back Right
 
-                DriveMotors(WPI_TalonSRX Motor1, WPI_TalonSRX Motor2, WPI_TalonSRX Motor3, WPI_TalonSRX Motor4)
+                DriveMotors() {}    
+
+                DriveMotors(WPI_TalonSRX * Motor1, WPI_TalonSRX * Motor2, WPI_TalonSRX * Motor3, WPI_TalonSRX * Motor4)
                 {
                     this->Motor1 = Motor1;
                     this->Motor2 = Motor2;
                     this->Motor3 = Motor3;
                     this->Motor4 = Motor4;                                                                                                                                                                                                        
-                }                
+                }            
         };
 
         // Joystick Data for Arcade Drive

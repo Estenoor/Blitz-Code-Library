@@ -34,7 +34,6 @@ void Blitz::BlitzLogger::init()
 	dateTime = "/home/lvuser/";
 	dateTime.append(spaceToUnderscore(getTimeStamp()));
 	dateTime.append(".txt");
-	SmartDashboard::PutString("StringTest", dateTime);
 	logfile = fopen(dateTime.c_str(), "a");
 }
 
