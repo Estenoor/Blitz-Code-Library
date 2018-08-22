@@ -7,27 +7,26 @@
 #include "BlitzLogger.hpp"
 
 using namespace std;
-using namespace Blitz;
-using namespace Blitz::Models;
 
 namespace Blitz
 {
     class Tank : DriveInterface
     {
         public:
-            Tank(Blitz::Models::DriveMotors DriveTrain,  Blitz::BlitzLogger *Logger)
+            Tank(Blitz::Models::DriveMotors *Motors,  Blitz::BlitzLogger *Logger)
             {
                 this->Logger = Logger;
-                this->DriveTrain = DriveTrain;
+                this->Motors = Motors;
             }
 
-            void Initialize(TankInput *Input);
+            void Initialize(Blitz::Models::TankInput *Input);
             void Run();
             void Close();
 
         private:
-            BlitzLogger *Logger;
-            DriveMotors DriveTrain;
+            Blitz::BlitzLogger *Logger;
+            Blitz::Models::TankInput *InputData;
+            Blitz::Models::DriveMotors *Motors;
     };
 }   
 

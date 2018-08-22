@@ -17,21 +17,21 @@ namespace Blitz
     {
 
         public:
-            MecanumDrive(Blitz::Models::DriveMotors *DriveTrain,  Blitz::BlitzLogger *Logger)
+            Mecanum(Blitz::Models::DriveMotors *Motors,  Blitz::BlitzLogger *Logger)
             {
                 this->Logger = Logger;
-                this->DriveTrain = DriveTrain;
+                this->Motors = Motors;
             }
 
-            void Initialize(MecanumInput *input);
+            void Initialize(Blitz::Models::MecanumInput *Input);
             void Drive();
             void Close();
             
             
         private:
-            MecanumInput *InputData;
-            BlitzLogger *Logger; 
-            Blitz::DriveMotors *DriveTrain;
+            Blitz::BlitzLogger *Logger; 
+            Blitz::Models::MecanumInput *InputData;
+            Blitz::Models::DriveMotors *Motors;
     };
 }
 

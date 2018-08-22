@@ -2,31 +2,27 @@
 
 using namespace std;
 
-using namespace Blitz;
-using namespace Blitz::Models;
 
-using Blitz::Mecanum;
-
-void Initialize(MecanumInput *input)
+void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
 {
-    InputData = input;
+    InputData = Input;
     
-    DriveTrain.Motor1.Set(0);
-    DriveTrain.Motor2.Set(0);
-    DriveTrain.Motor3.Set(0);
-    DriveTrain.Motor4.Set(0);
+    Motors->Motor1->Set(0);
+    Motors->Motor2->Set(0);
+    Motors->Motor3->Set(0);
+    Motors->Motor4->Set(0);
     
 }
 
- void Drive()
+ void Blitz::Mecanum::Drive()
  {
-     DriveTrain.Motor1.Set(input.XValue + input.YValue + input.ZValue);
-     DriveTrain.Motor2.Set(-input.XValue + input.YValue + input.ZValue);
-     DriveTrain.Motor3.Set(-input.XValue + input.YValue - input.ZValue);
-     DriveTrain.Motor4.Set(input.XValue + input.YValue - input.ZValue);
+    Motors->Motor1->Set(InputData->XValue + InputData->YValue + InputData->ZValue);
+    Motors->Motor2->Set(-InputData->XValue + InputData->YValue + InputData->ZValue);
+    Motors->Motor3->Set(-InputData->XValue + InputData->YValue - InputData->ZValue);
+    Motors->Motor4->Set(InputData->XValue + InputData->YValue - InputData->ZValue);
  }
 
- void Close()
+ void Blitz::Mecanum::Close()
  {
-        
+
  }

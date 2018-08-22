@@ -8,27 +8,25 @@
 
 using namespace std;
 
-using namespace Blitz;
-using namespace Blitz::Models;
-
 namespace Blitz
 {
     class Arcade : DriveInterface
     {
         public:
-            Arcade(DriveMotors *Motors, BlitzLogger *Logger)
+            Arcade(Blitz::Models::DriveMotors *Motors, Blitz::BlitzLogger *Logger)
             {
                 this->Motors = Motors;
                 this->Logger = Logger;
             }
 
-            void Initialize(ArcadeInput * Input);
+            void Initialize(Blitz::Models::ArcadeInput *Input);
             void Run();
             void Close();
 
         private:
-            DriveMotors *Motors;
-            BlitzLogger *Logger;
+            Blitz::BlitzLogger *Logger;
+            Blitz::Models::ArcadeInput *InputData;
+            Blitz::Models::DriveMotors *Motors;
     };
 }   
 

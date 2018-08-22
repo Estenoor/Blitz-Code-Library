@@ -1,28 +1,26 @@
 #include "Tank.hpp"
 
 using namespace std;
-using namespace Blitz;
-using namespace Blitz::Models;
 
-using Blitz::Tank;
-
-void Initialize(TankInput *Input)
+void Blitz::Tank::Initialize(Blitz::Models::TankInput *Input)
 {
-    DriveTrain.Motor1.Set(0);
-    DriveTrain.Motor3.Set(0);
-    DriveTrain.Motor2.Set(0);
-    DriveTrain.Motor4.Set(0);
+    InputData = Input;
+
+    Motors->Motor1->Set(0);
+    Motors->Motor3->Set(0);
+    Motors->Motor2->Set(0);
+    Motors->Motor4->Set(0);
 }
 
-void Run()
+void Blitz::Tank::Run()
 {
-    DriveTrain.Motor1.Set(Input.LeftValue);
-    DriveTrain.Motor3.Set(Input.LeftValue);
-    DriveTrain.Motor2.Set(Input.RightValue);
-    DriveTrain.Motor4.Set(Input.RightValue);
+    Motors->Motor1->Set(InputData->LeftValue);
+    Motors->Motor3->Set(InputData->LeftValue);
+    Motors->Motor2->Set(InputData->RightValue);
+    Motors->Motor4->Set(InputData->RightValue);
 }
 
-void Close()
+void Blitz::Tank::Close()
 {
     // Wow Such Empty
 }
