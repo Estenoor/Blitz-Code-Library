@@ -1,5 +1,4 @@
-#ifndef SRC_DRIVETRAINS_DRIVEINTERFACE_HPP
-#define SRC_DRIVETRAINS_DRIVEINTERFACE_HPP
+#pragma once
 
 #include <WPILib.h>
 #include "DataTypes.hpp"
@@ -14,4 +13,3 @@ namespace Blitz
             virtual void Close() = 0;      
     };
 }
-#endif

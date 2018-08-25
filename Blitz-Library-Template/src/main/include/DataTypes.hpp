@@ -1,5 +1,4 @@
-#ifndef SRC_DATATYPES_HPP
-#define SRC_DATATYPES_HPP
+#pragma once
 
 #include <WPILib.h>
 #include <ctre/Phoenix.h>
@@ -74,5 +73,3 @@ namespace Blitz
 
     }
 }
-
-#endif

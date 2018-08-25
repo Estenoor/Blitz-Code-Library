@@ -1,5 +1,4 @@
-#ifndef SRC_DRIVETRAINS_MECANUM_MECANUM_HPP
-#define SRC_DRIVETRAINS_MECANUM_MECANUM_HPP
+#pragma once
 
 #include <WPILib.h>
 
@@ -34,5 +33,3 @@ namespace Blitz
             Blitz::Models::DriveMotors *Motors;
     };
 }
-
-#endif

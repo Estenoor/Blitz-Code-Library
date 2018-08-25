@@ -5,9 +5,7 @@
  *      Author: Sam
  */
 
-#ifndef SRC_BLITZLOGGER_HPP_
-#define SRC_BLITZLOGGER_HPP_
-
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -55,8 +53,3 @@ namespace Blitz
 		};
 	};
 }
-
-
-
-
-#endif /* SRC_BLITZLOGGER_HPP_ */

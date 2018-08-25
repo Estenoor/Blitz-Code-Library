@@ -1,5 +1,4 @@
-#ifndef SRC_DRIVETRAINS_TANK_TANKDRIVE_HPP
-#define SRC_DRIVETRAINS_TANK_TANKDRIVE_HPP
+#pragma once
 
 #include <WPILib.h>
 
@@ -28,6 +27,4 @@ namespace Blitz
             Blitz::Models::TankInput *InputData;
             Blitz::Models::DriveMotors *Motors;
     };
-}   
-
-#endif
+}
