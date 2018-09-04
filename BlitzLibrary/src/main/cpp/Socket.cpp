@@ -1,8 +1,8 @@
-#include "Networking.hpp"
+#include "Socket.hpp"
 
 using namespace std;
 
-void Blitz::Networking::Open()
+void Blitz::Socket::Open()
 {
     socketAddress.sin_family = AF_INET;
     socketAddress.sin_port = htons(port);
@@ -14,7 +14,7 @@ void Blitz::Networking::Open()
 
 }
 
-void Blitz::Networking::UpdateData()
+void Blitz::Socket::UpdateData()
 {
     recv(sock, buffer, 256, 0);
 
@@ -23,7 +23,7 @@ void Blitz::Networking::UpdateData()
     *output = data;
 }
 
-void Blitz::Networking::Close()
+void Blitz::Socket::Close()
 {
     close(sock);
 }
