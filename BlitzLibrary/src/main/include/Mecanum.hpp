@@ -2,7 +2,6 @@
 
 #include <WPILib.h>
 
-#include "DataTypes.hpp"
 #include "DriveInterface.hpp"
 #include "BlitzLogger.hpp"
 

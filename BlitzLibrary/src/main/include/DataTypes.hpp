@@ -11,14 +11,14 @@ namespace Blitz
         class DriveMotors
         {
             public:
-                WPI_TalonSRX * Motor1; // Front Left
-                WPI_TalonSRX * Motor2; // Front Right
-                WPI_TalonSRX * Motor3; // Back Left
-                WPI_TalonSRX * Motor4; // Back Right
+                TalonSRX * Motor1; // Front Left
+                TalonSRX * Motor2; // Front Right
+                TalonSRX * Motor3; // Back Left
+                TalonSRX * Motor4; // Back Right
 
-                DriveMotors() {}    
+                DriveMotors() {}
 
-                DriveMotors(WPI_TalonSRX * Motor1, WPI_TalonSRX * Motor2, WPI_TalonSRX * Motor3, WPI_TalonSRX * Motor4)
+                DriveMotors(TalonSRX * Motor1, TalonSRX * Motor2, TalonSRX * Motor3, WPI_TalonSRX * Motor4)
                 {
                     this->Motor1 = Motor1;
                     this->Motor2 = Motor2;

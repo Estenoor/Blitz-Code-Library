@@ -1,7 +1,9 @@
 #pragma once
 
 #include <WPILib.h>
+
 #include "DataTypes.hpp"
+#include "DriveReferences.hpp"
 
 namespace Blitz
 {

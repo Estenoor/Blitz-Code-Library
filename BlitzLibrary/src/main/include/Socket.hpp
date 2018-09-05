@@ -9,10 +9,10 @@ using namespace std;
 
 namespace Blitz
 {
-    class Networking
+    class Socket
     {
         public:
-            Networking(unsigned short port, std::string *output)
+            Socket(unsigned short port, std::string *output)
             {
                 this->port = port;
                 this->output = output;
