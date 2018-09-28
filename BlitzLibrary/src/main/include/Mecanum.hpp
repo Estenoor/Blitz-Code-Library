@@ -30,5 +30,6 @@ namespace Blitz
             Blitz::BlitzLogger *Logger; 
             Blitz::Models::MecanumInput *InputData;
             Blitz::Models::DriveMotors *Motors;
+
     };
 }

@@ -26,5 +26,6 @@ namespace Blitz
             Blitz::BlitzLogger *Logger;
             Blitz::Models::TankInput *InputData;
             Blitz::Models::DriveMotors *Motors;
+
     };
 }
