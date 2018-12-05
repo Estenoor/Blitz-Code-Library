@@ -1,6 +1,0 @@
-- [[Library Function & Overview]]
-- [[Drivetrains]]
-  - [[Tank]]
-  - [[Arcade]]
-  - [[Mecanum]]
-  - [[Octocanum]]
