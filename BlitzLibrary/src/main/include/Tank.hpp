@@ -2,14 +2,15 @@
 
 #include <WPILib.h>
 
-#include "DriveInterface.hpp"
+#include "DataTypes.hpp"
 #include "BlitzLogger.hpp"
+#include "DriveReferences.hpp"
 
 using namespace std;
 
 namespace Blitz
 {
-    class Tank : DriveInterface
+    class Tank
     {
         public:
             Tank(Blitz::Models::DriveMotors *Motors,  Blitz::BlitzLogger *Logger)
@@ -18,6 +19,7 @@ namespace Blitz
                 this->Motors = Motors;
             }
 
+            void SetMotorDirection(int Motor, int dir);
             void Initialize(Blitz::Models::TankInput *Input);
             void Run();
             void Close();
@@ -26,6 +28,6 @@ namespace Blitz
             Blitz::BlitzLogger *Logger;
             Blitz::Models::TankInput *InputData;
             Blitz::Models::DriveMotors *Motors;
-
+            int MotorDirs[4] = {1, 1, 1, 1};
     };
 }

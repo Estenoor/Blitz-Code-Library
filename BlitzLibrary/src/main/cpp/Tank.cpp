@@ -2,6 +2,11 @@
 
 using namespace std;
 
+void Blitz::Tank::SetMotorDirection(int Motor, int dir)
+{
+    MotorDirs[Motor] = dir;
+}
+
 void Blitz::Tank::Initialize(Blitz::Models::TankInput *Input)
 {
     InputData = Input;
@@ -67,5 +72,5 @@ void Blitz::Tank::Run()
 
 void Blitz::Tank::Close()
 {
-    // Wow Such Empty
+
 }

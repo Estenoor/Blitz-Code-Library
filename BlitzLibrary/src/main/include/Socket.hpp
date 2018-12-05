@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <iostream>
+#include <pthread.h>
 
 using namespace std;
 
@@ -12,25 +13,21 @@ namespace Blitz
     class Socket
     {
         public:
-            Socket(unsigned short port, std::string *output)
+            Socket(std::string *output)
             {
-                this->port = port;
                 this->output = output;
             }
 
             void Open();
-            void UpdateData();
-            void Close();
 
+            std::string *output;
 
             
         private:
 
-            std::string *output;
-            unsigned short port;
-            int sock;
-            struct sockaddr_in socketAddress;
-            char buffer[256];
+            static void * Server(void * args);
+            
+            pthread_t threads;
             
     };  
 }

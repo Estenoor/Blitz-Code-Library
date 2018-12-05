@@ -18,7 +18,7 @@ namespace Blitz
 
                 DriveMotors() {}
 
-                DriveMotors(TalonSRX * Motor1, TalonSRX * Motor2, TalonSRX * Motor3, WPI_TalonSRX * Motor4)
+                DriveMotors(TalonSRX * Motor1, TalonSRX * Motor2, TalonSRX * Motor3, TalonSRX * Motor4)
                 {
                     this->Motor1 = Motor1;
                     this->Motor2 = Motor2;
@@ -70,6 +70,22 @@ namespace Blitz
                 }
         };
 
+        // Joystick Data for Ocotocanum Drive
+        class OctocanumInput
+        {
+            public:
+                double XValue; // Left/Right Speed (ignored in tank mode)
+                double YValue; // Forward/Back Speed
+                double ZValue; // Rotation Speed 
+                int DriveMode; //Drive Mode
 
+                OctocanumInput(double XValue, double YValue, double ZValue, int DriveMode)
+                {
+                    this->XValue = XValue;
+                    this->YValue = YValue;
+                    this->ZValue = ZValue;
+                    this-> DriveMode = DriveMode;
+                }
+        };
     }
 }

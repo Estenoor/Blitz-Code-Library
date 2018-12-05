@@ -2,6 +2,10 @@
 
 using namespace std;
 
+void Blitz::Mecanum::SetMotorDirection(int Motor, int dir)
+{
+    MotorDirs[Motor] = dir;
+}
 
 void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
 {

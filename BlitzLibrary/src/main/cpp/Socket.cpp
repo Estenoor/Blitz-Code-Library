@@ -4,6 +4,17 @@ using namespace std;
 
 void Blitz::Socket::Open()
 {
+    pthread_create(&threads, NULL, Server, (void *)output);
+}
+
+void *Blitz::Socket::Server(void * args)
+{
+    string * output = (string *) args;
+
+    unsigned short port = 5800;
+    int sock;
+    struct sockaddr_in socketAddress;
+
     socketAddress.sin_family = AF_INET;
     socketAddress.sin_port = htons(port);
     socketAddress.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -12,18 +23,18 @@ void Blitz::Socket::Open()
 
     bind(sock, (struct sockaddr *)&socketAddress, sizeof(socketAddress));
 
-}
+    while(true)
+    {
+        char buffer[256];
 
-void Blitz::Socket::UpdateData()
-{
-    recv(sock, buffer, 256, 0);
+        recv(sock, buffer, 256, 0);
 
-    string data(buffer);
+        string data(buffer);
 
-    *output = data;
-}
+        *output = data;
+    }
 
-void Blitz::Socket::Close()
-{
     close(sock);
+
+    pthread_exit(NULL);
 }

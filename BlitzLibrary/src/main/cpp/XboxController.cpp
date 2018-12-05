@@ -1,8 +1,6 @@
 #include "JoySticks.hpp"
 
-using namespace Blitz;
-
-void Blitz::Joysticks::Xbox::update()
+void Blitz::Joysticks::XboxController::update()
 {
     //Update Buttons
     AButton = Xbox.GetRawButton(A_BUTTON_ID);

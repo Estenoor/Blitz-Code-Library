@@ -2,14 +2,15 @@
 
 #include <WPILib.h>
 
-#include "DriveInterface.hpp"
+#include "DataTypes.hpp"
 #include "BlitzLogger.hpp"
+#include "DriveReferences.hpp"
 
 using namespace std;
 
 namespace Blitz
 {
-    class Arcade : DriveInterface
+    class Arcade
     {
         public:
             Arcade(Blitz::Models::DriveMotors *Motors, Blitz::BlitzLogger *Logger)
@@ -18,6 +19,7 @@ namespace Blitz
                 this->Logger = Logger;
             }
 
+            void SetMotorDirection(int Motor, int dir);
             void Initialize(Blitz::Models::ArcadeInput *Input);
             void Run();
             void Close();
@@ -26,5 +28,6 @@ namespace Blitz
             Blitz::BlitzLogger *Logger;
             Blitz::Models::ArcadeInput *InputData;
             Blitz::Models::DriveMotors *Motors;
+            int MotorDirs[4] = {1, 1, 1, 1};
     };
 }

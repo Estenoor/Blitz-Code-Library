@@ -1,13 +1,13 @@
-#include "Arcade.hpp"
+#include "Octocanum.hpp"
 
 using namespace std;
 
-void Blitz::Arcade::SetMotorDirection(int Motor, int dir)
+void Blitz::Octocanum::SetMotorDirection(int Motor, int dir)
 {
     MotorDirs[Motor] = dir;
 }
 
-void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
+void Blitz::Octocanum::Initialize(Blitz::Models::OctocanumInput *Input)
 {
     InputData = Input;
     
@@ -59,18 +59,27 @@ void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
     Motors->Motor2->Set(ControlMode::Velocity, 0);
     Motors->Motor3->Set(ControlMode::Velocity, 0);
     Motors->Motor4->Set(ControlMode::Velocity, 0);
-
 }
 
-void Blitz::Arcade::Run()
+void Blitz::Octocanum::Drive()
 {
-    Motors->Motor1->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor2->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor3->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor4->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    if(InputData->DriveMode == 0)
+    {
+        Motors->Motor1->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor2->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor3->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor4->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    }
+    else if(InputData->DriveMode == 1)
+    {
+        Motors->Motor1->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor3->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor2->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor4->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    }
 }
 
-void Blitz::Arcade::Close()
+void Blitz::Octocanum::Close()
 {
 
 }

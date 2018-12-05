@@ -6,7 +6,7 @@ namespace Blitz
 {
     namespace Joysticks
     {
-        class Xbox
+        class XboxController
         {
             public:
                 int port;
@@ -32,35 +32,39 @@ namespace Blitz
                 double RightTrigger = 0;
 
                 //Button ids
-                final int A_BUTTON_ID = 0;
-                final int B_BUTTON_ID = 0;
-                final int X_BUTTON_ID = 0;
-                final int Y_BUTTON_ID = 0;
-                final int LEFT_BUMPER_ID = 0;
-                final int RIGHT_BUMPER_ID = 0;
-                final int LEFT_STICK_BUTTON_ID = 0;
-                final int RIGHT_STICK_BUTTON_ID = 0;
+                const int A_BUTTON_ID = 0;
+                const int B_BUTTON_ID = 0;
+                const int X_BUTTON_ID = 0;
+                const int Y_BUTTON_ID = 0;
+                const int LEFT_BUMPER_ID = 0;
+                const int RIGHT_BUMPER_ID = 0;
+                const int LEFT_STICK_BUTTON_ID = 0;
+                const int RIGHT_STICK_BUTTON_ID = 0;
 
                 //axis ids
-                final int LEFT_X_AXIS_ID = 0;
-                final int LEFT_Y_AXIS_ID = 0;
-                final int RIGHT_X_AXIS_ID = 0;
-                final int RIGHT_Y_AXIS_ID = 0;
-                final int LEFT_TRIGGER_ID = 0;
-                final int RIGHT_TRIGGER_ID = 0;
-
-                Xbox() {}
-
-                Xbox(int port):
-                    Xbox(port)
-                {
-                    this->port = port;
-
-                }
+                const int LEFT_X_AXIS_ID = 0;
+                const int LEFT_Y_AXIS_ID = 0;
+                const int RIGHT_X_AXIS_ID = 0;
+                const int RIGHT_Y_AXIS_ID = 0;
+                const int LEFT_TRIGGER_ID = 0;
+                const int RIGHT_TRIGGER_ID = 0;
 
                 void update();
 
-        }
+                XboxController() :
+                    Xbox(0)
+                {
+
+                }
+
+                XboxController(int port):
+                    Xbox(port)
+                {
+                    this->port = port;
+                }
+
+
+        };
 
         class ThreeAxisJoystick
         {
@@ -90,40 +94,92 @@ namespace Blitz
                 double zAxis = 0;
                 double Dial = 0;
 
-                //Button ids
-                final int TRIGGER_ID = 1;
-                final int BUTTON2_ID = 2;
-                final int BUTTON3_ID = 3;
-                final int BUTTON4_ID = 4;
-                final int BUTTON5_ID = 5;
-                final int BUTTON6_ID = 6;
-                final int BUTTON7_ID = 7;
-                final int BUTTON8_ID = 8;
-                final int BUTTON9_ID = 9;
-                final int BUTTON10_ID = 10;
-                final int BUTTON11_ID = 11;
-                final int BUTTON12_ID = 12;
-                final int D_PAD_ID[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+                //Button IDs
+                const int TRIGGER_ID = 1;
+                const int BUTTON2_ID = 2;
+                const int BUTTON3_ID = 3;
+                const int BUTTON4_ID = 4;
+                const int BUTTON5_ID = 5;
+                const int BUTTON6_ID = 6;
+                const int BUTTON7_ID = 7;
+                const int BUTTON8_ID = 8;
+                const int BUTTON9_ID = 9;
+                const int BUTTON10_ID = 10;
+                const int BUTTON11_ID = 11;
+                const int BUTTON12_ID = 12;
+                const int D_PAD_ID[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
-                //axis ids
-                final int X_AXIS_ID = 0;
-                final int Y_AXIS_ID = 0;
-                final int Z_AXIS_ID = 0;
-                final int DIAL_ID = 0;
+                //axis IDs
+                const int X_AXIS_ID = 0;
+                const int Y_AXIS_ID = 0;
+                const int Z_AXIS_ID = 0;
+                const int DIAL_ID = 0;
 
+                void update();
 
-                ThreeAxisJoystick() {}
+                ThreeAxisJoystick() :
+                    ThreeAxis(0)
+                {
+
+                }
 
                 ThreeAxisJoystick(int port) :
                     ThreeAxis(port)
                 {
                     this->port = port; 
                 }
-        }
+        };
 
         class TwoAxisJoystick
         {
-            
-        }
+            public:
+                int port = 0;
+                Joystick TwoAxis;
+
+                //Buttons
+                double Trigger = 0;
+                double Button2 = 0;
+                double Button3 = 0;
+                double Button4 = 0;
+                double Button5 = 0;
+                double Button6 = 0;
+                double Button7 = 0;
+                double Button8 = 0;
+
+                //Axis
+                double XAxis = 0;
+                double YAxis = 0;
+                double Dial = 0;
+
+                //Button IDs
+                const int TRIGGER_ID = 1;
+                const int BUTTON2_ID = 2;
+                const int BUTTON3_ID = 3;
+                const int BUTTON4_ID = 4;
+                const int BUTTON5_ID = 5;
+                const int BUTTON6_ID = 6;
+                const int BUTTON7_ID = 7;
+                const int BUTTON8_ID = 8;
+
+                //Axis IDs
+                const int X_AXIS_ID = 0;
+                const int Y_AXIS_ID = 0;
+                const int DIAL_ID = 0;
+
+                void update();
+
+                TwoAxisJoystick() :
+                    TwoAxis(0)
+                {
+
+                }
+
+                TwoAxisJoystick(int port) :
+                    TwoAxis(port)
+                {
+                    this->port = port; 
+                }
+
+        };   
     }
 }
