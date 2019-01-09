@@ -64,10 +64,20 @@ void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
 
 void Blitz::Arcade::Run()
 {
-    Motors->Motor1->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor2->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor3->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor4->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    if(UsePID)
+    {
+        Motors->Motor1->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor2->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor3->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor4->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    }
+    else
+    {
+        Motors->Motor1->Set(ControlMode::PercentOutput, (InputData->YValue + InputData->ZValue));
+        Motors->Motor2->Set(ControlMode::PercentOutput, (InputData->YValue + InputData->ZValue));
+        Motors->Motor3->Set(ControlMode::PercentOutput, (InputData->YValue - InputData->ZValue));
+        Motors->Motor4->Set(ControlMode::PercentOutput, (InputData->YValue - InputData->ZValue));
+    }
 }
 
 void Blitz::Arcade::Close()

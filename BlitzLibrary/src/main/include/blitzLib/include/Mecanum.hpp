@@ -26,6 +26,8 @@ namespace Blitz
             void Drive();
             void Close();
             
+            bool UsePID = false;
+            
             
         private:
             Blitz::BlitzLogger *Logger; 

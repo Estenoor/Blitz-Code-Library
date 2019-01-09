@@ -24,6 +24,8 @@ namespace Blitz
             void Initialize(Blitz::Models::TankInput *Input);
             void Run();
             void Close();
+            
+            bool UsePID = false;
 
         private:
             Blitz::BlitzLogger *Logger;

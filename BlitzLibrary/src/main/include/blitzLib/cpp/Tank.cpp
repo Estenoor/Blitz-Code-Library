@@ -64,10 +64,21 @@ void Blitz::Tank::Initialize(Blitz::Models::TankInput *Input)
 
 void Blitz::Tank::Run()
 {
-    Motors->Motor1->Set(ControlMode::Velocity, (InputData->LeftValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor3->Set(ControlMode::Velocity, (InputData->LeftValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor2->Set(ControlMode::Velocity, (InputData->RightValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-    Motors->Motor4->Set(ControlMode::Velocity, (InputData->RightValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    if(UsePID)
+    {
+        Motors->Motor1->Set(ControlMode::Velocity, (InputData->LeftValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor3->Set(ControlMode::Velocity, (InputData->LeftValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor2->Set(ControlMode::Velocity, (InputData->RightValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        Motors->Motor4->Set(ControlMode::Velocity, (InputData->RightValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+    }
+    else
+    {
+        Motors->Motor1->Set(ControlMode::PercentOutput, (InputData->LeftValue));
+        Motors->Motor3->Set(ControlMode::PercentOutput, (InputData->LeftValue));
+        Motors->Motor2->Set(ControlMode::PercentOutput, (InputData->RightValue));
+        Motors->Motor4->Set(ControlMode::PercentOutput, (InputData->RightValue));
+ 
+    }
 }
 
 void Blitz::Tank::Close()

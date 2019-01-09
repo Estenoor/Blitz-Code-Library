@@ -9,7 +9,8 @@ namespace Blitz
     class DriveReference
     {
         public:
-            static constexpr double WHEEL_CIRCUMFERENCE = 0.5;
+            static constexpr double WHEEL_RADIUS = 0.1016; //Radius of the wheel in Meters
+            static constexpr double WHEEL_CIRCUMFERENCE = 3.14 * WHEEL_RADIUS;
             static constexpr double ENCODER_UNITS_PER_ROTATION = 4096;
             static constexpr double RPM_PER_METER = 1/WHEEL_CIRCUMFERENCE;
             static constexpr double ENCODER_UNITS_PER_METER = RPM_PER_METER * ENCODER_UNITS_PER_ROTATION;

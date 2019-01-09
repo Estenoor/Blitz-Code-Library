@@ -63,19 +63,39 @@ void Blitz::Octocanum::Initialize(Blitz::Models::OctocanumInput *Input)
 
 void Blitz::Octocanum::Drive()
 {
-    if(InputData->DriveMode == 0)
+    if(UsePID)
     {
-        Motors->Motor1->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor2->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor3->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor4->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        if(InputData->DriveMode == 0)
+        {
+            Motors->Motor1->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+            Motors->Motor2->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+            Motors->Motor3->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+            Motors->Motor4->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        }
+        else if(InputData->DriveMode == 1)
+        {
+            Motors->Motor1->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+            Motors->Motor3->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+            Motors->Motor2->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+            Motors->Motor4->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        }
     }
-    else if(InputData->DriveMode == 1)
+    else
     {
-        Motors->Motor1->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor3->Set(ControlMode::Velocity, (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor2->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor4->Set(ControlMode::Velocity, (InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        if(InputData->DriveMode == 0)
+        {
+            Motors->Motor1->Set(ControlMode::PercentOutput, (InputData->XValue + InputData->YValue + InputData->ZValue));
+            Motors->Motor2->Set(ControlMode::PercentOutput, (-InputData->XValue + InputData->YValue + InputData->ZValue));
+            Motors->Motor3->Set(ControlMode::PercentOutput, (-InputData->XValue + InputData->YValue - InputData->ZValue));
+            Motors->Motor4->Set(ControlMode::PercentOutput, (InputData->XValue + InputData->YValue - InputData->ZValue));
+        }
+        else if(InputData->DriveMode == 1)
+        {
+            Motors->Motor1->Set(ControlMode::PercentOutput, (InputData->YValue + InputData->ZValue));
+            Motors->Motor3->Set(ControlMode::PercentOutput, (InputData->YValue + InputData->ZValue));
+            Motors->Motor2->Set(ControlMode::PercentOutput, (InputData->YValue - InputData->ZValue));
+            Motors->Motor4->Set(ControlMode::PercentOutput, (InputData->YValue - InputData->ZValue));
+        }
     }
 }
 
