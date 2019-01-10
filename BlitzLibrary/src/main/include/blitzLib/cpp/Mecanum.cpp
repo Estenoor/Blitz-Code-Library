@@ -11,7 +11,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
 {
     InputData = Input;
     
-    Motors->Motor1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor1->SetSensorPhase(true);
     Motors->Motor1->ConfigNominalOutputForward(0, 30);
     Motors->Motor1->ConfigNominalOutputReverse(0, 30);
@@ -22,7 +22,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
     Motors->Motor1->Config_kI(0, Blitz::DriveReference::MOTOR1_kI, 30);
     Motors->Motor1->Config_kD(0, Blitz::DriveReference::MOTOR1_kD, 30);
 
-    Motors->Motor2->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor2->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor2->SetSensorPhase(true);
     Motors->Motor2->ConfigNominalOutputForward(0, 30);
     Motors->Motor2->ConfigNominalOutputReverse(0, 30);
@@ -33,7 +33,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
     Motors->Motor2->Config_kI(0, Blitz::DriveReference::MOTOR2_kI, 30);
     Motors->Motor2->Config_kD(0, Blitz::DriveReference::MOTOR2_kD, 30);
 
-    Motors->Motor3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor3->SetSensorPhase(true);
     Motors->Motor3->ConfigNominalOutputForward(0, 30);
     Motors->Motor3->ConfigNominalOutputReverse(0, 30);
@@ -44,7 +44,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
     Motors->Motor3->Config_kI(0, Blitz::DriveReference::MOTOR3_kI, 30);
     Motors->Motor3->Config_kD(0, Blitz::DriveReference::MOTOR3_kD, 30);
 
-    Motors->Motor4->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor4->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor4->SetSensorPhase(true);
     Motors->Motor4->ConfigNominalOutputForward(0, 30);
     Motors->Motor4->ConfigNominalOutputReverse(0, 30);
@@ -64,12 +64,39 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
 
  void Blitz::Mecanum::Drive()
  {
+    double motorValues[4];
+
      if(UsePID)
      {
-        Motors->Motor1->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor2->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor3->Set(ControlMode::Velocity, (-InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
-        Motors->Motor4->Set(ControlMode::Velocity, (InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::CTRE_MILLISECOND_CONVERSION);
+        motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[3] = (InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+
+        double maxMagnitude = 0;
+
+        for (double checkValue : motorValues)
+	    {
+            checkValue = std::fabs(checkValue);
+
+            if (maxMagnitude < checkValue)
+            {
+                maxMagnitude = checkValue;
+            }
+        }
+
+        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_PID)
+        {
+            for (double checkValue : motorValues)
+            {
+                checkValue = checkValue / maxMagnitude;
+            }
+        }
+
+        Motors->Motor1->Set(ControlMode::Velocity, motorValues[0]);
+        Motors->Motor2->Set(ControlMode::Velocity, motorValues[1]);
+        Motors->Motor3->Set(ControlMode::Velocity, motorValues[2]);
+        Motors->Motor4->Set(ControlMode::Velocity, motorValues[3]);
     }
     else
     {
@@ -77,6 +104,36 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
         Motors->Motor2->Set(ControlMode::PercentOutput, (-InputData->XValue + InputData->YValue + InputData->ZValue));
         Motors->Motor3->Set(ControlMode::PercentOutput, (-InputData->XValue + InputData->YValue - InputData->ZValue));
         Motors->Motor4->Set(ControlMode::PercentOutput, (InputData->XValue + InputData->YValue - InputData->ZValue));
+        
+        motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+        motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+        motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+        motorValues[3] = (InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+
+        double maxMagnitude = 0;
+
+        for (double checkValue : motorValues)
+	    {
+            checkValue = std::fabs(checkValue);
+
+            if (maxMagnitude < checkValue)
+            {
+                maxMagnitude = checkValue;
+            }
+        }
+
+        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_NO_PID)
+        {
+            for (double checkValue : motorValues)
+            {
+                checkValue = checkValue / maxMagnitude;
+            }
+        }
+
+        Motors->Motor1->Set(ControlMode::PercentOutput, motorValues[0]);
+        Motors->Motor2->Set(ControlMode::PercentOutput, motorValues[1]);
+        Motors->Motor3->Set(ControlMode::PercentOutput, motorValues[2]);
+        Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3]);
     }
  }
 

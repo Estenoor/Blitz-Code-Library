@@ -10,11 +10,18 @@ namespace Blitz
     {
         public:
             static constexpr double WHEEL_RADIUS = 0.1016; //Radius of the wheel in Meters
-            static constexpr double WHEEL_CIRCUMFERENCE = 3.14 * WHEEL_RADIUS;
             static constexpr double ENCODER_UNITS_PER_ROTATION = 4096;
-            static constexpr double RPM_PER_METER = 1/WHEEL_CIRCUMFERENCE;
-            static constexpr double ENCODER_UNITS_PER_METER = RPM_PER_METER * ENCODER_UNITS_PER_ROTATION;
-            static constexpr double CTRE_MILLISECOND_CONVERSION = 10;
+
+            static constexpr double MAX_RPM = 100;
+
+            static constexpr double WHEEL_CIRCUMFERENCE = 3.14 * WHEEL_RADIUS;
+            static constexpr double ROTATIONS_PER_METER = 1/WHEEL_CIRCUMFERENCE;
+            static constexpr double ENCODER_UNITS_PER_METER = ROTATIONS_PER_METER * ENCODER_UNITS_PER_ROTATION;
+            static constexpr double SECOND_TO_HUNDERD_MILLISECOND_CONVERSION = 10;
+
+            static constexpr double MAX_SPEED_PID = ((MAX_RPM/60) * ENCODER_UNITS_PER_ROTATION)/SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+            static constexpr double MAX_SPEED_NO_PID = (MAX_RPM/60) * ROTATIONS_PER_METER;
+
 
             static constexpr double MOTOR1_kF = 0;
             static constexpr double MOTOR1_kP = 0;
