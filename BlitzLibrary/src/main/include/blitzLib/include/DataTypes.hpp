@@ -2,8 +2,10 @@
 
 #include <frc/WPILib.h>
 #include <ctre/Phoenix.h>
+#include <rev/CANSparkMax.h>
 
 using namespace frc;
+using namespace rev;
 
 namespace Blitz
 {
@@ -27,6 +29,14 @@ namespace Blitz
                     this->Motor3 = Motor3;
                     this->Motor4 = Motor4;                                                                                                                                                                                                        
                 }            
+        };
+
+        class BrushlessDriveMotors
+        {
+            public:
+                CANSparkMax * LeftFrontMotor;
+                CANSparkMax * LeftBackMotor;
+                CANSparkMax * RightFrontMotor;
         };
 
         // Joystick Data for Arcade Drive
