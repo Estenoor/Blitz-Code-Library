@@ -23,9 +23,30 @@
  * Debug = 3,
  * Trace = 4
  */
+Blitz::BlitzLogger::BlitzLogger()
+{
+	this->logLevel = LOGLEVEL_INFO;
+}
+
+
 Blitz::BlitzLogger::BlitzLogger(int logLevel)
 {
 	this->logLevel = logLevel;
+}
+
+void Blitz::BlitzLogger::setLogLevel(int logLevel)
+{
+	this->logLevel = logLevel;
+}
+
+Blitz::BlitzLogger * Blitz::BlitzLogger::getInstance()
+{
+	if(instance == null)
+	{
+		instance = &Blitz::BlitzLogger();
+	}
+
+	return instance;
 }
 
 void Blitz::BlitzLogger::init()
@@ -66,11 +87,6 @@ std::string Blitz::BlitzLogger::getTimeStamp()
 	std::string timeStamp = ctime(&t);
 	timeStamp = timeStamp.substr(0,timeStamp.length()-1);
 	return timeStamp;
-}
-
-std::string Blitz::BlitzLogger::getTicksElapsed()
-{
-
 }
 
 void Blitz::BlitzLogger::log(std::string currentStage, std::string level, std::string message)

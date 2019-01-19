@@ -14,42 +14,48 @@ namespace Blitz
 {
 	class BlitzLogger
 	{
-	public :
-		BlitzLogger(int logLevel);
+		private:
+			BlitzLogger();
+			BlitzLogger(int logLevel);
+			
+			//Singleton Instance of BlitzLogger
+			BlitzLogger * instance;
 
-		//Variables
-		FILE * logfile;
+		public:
+			//Variables
+			FILE * logfile;
 
-		int logLevel = 0;
+			int logLevel = 0;
 
-		//Non-logging functions
-		void init();
-		std::string getTimeStamp();
-		std::string getTicksElapsed();
-		std::string spaceToUnderscore(std::string input);
-		void close();
+			//Non-logging functions
+			void init();
+			void setLogLevel(int LogLevel);
+			Blitz::BlitzLogger * getInstance();
+			std::string getTimeStamp();
+			std::string spaceToUnderscore(std::string input);
+			void close();
 
-		//Logging Functions
-		void log(std::string currentStage, std::string level, std::string message);
-		void info(std::string currentStage, std::string message);
-		void debug(std::string currentStage, std::string message);
-		void warning(std::string currentStage, std::string message);
-		void error(std::string currentStage, std::string message);
-		void trace(std::string currentStage, std::string message);
+			//Logging Functions
+			void log(std::string currentStage, std::string level, std::string message);
+			void info(std::string currentStage, std::string message);
+			void debug(std::string currentStage, std::string message);
+			void warning(std::string currentStage, std::string message);
+			void error(std::string currentStage, std::string message);
+			void trace(std::string currentStage, std::string message);
 
-		enum Stage
-		{
-			Auto = 0,
-			Tele = 1
-		};
+			enum Stage
+			{
+				Auto = 0,
+				Tele = 1
+			};
 
-		enum LogLevel
-		{
-			Error = 0,
-			Warning = 1,
-			Info = 2,
-			Debug = 3,
-			Trace = 4
-		};
+			enum LogLevel
+			{
+				Error = 0,
+				Warning = 1,
+				Info = 2,
+				Debug = 3,
+				Trace = 4
+			};
 	};
 }
