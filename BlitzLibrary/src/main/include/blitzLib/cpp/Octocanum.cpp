@@ -1,11 +1,92 @@
 #include "Octocanum.hpp"
 
-using namespace std;
-
 void Blitz::Octocanum::SetMotorDirection(int Motor, int dir)
 {
     MotorDirs[Motor] = dir;
 }
+
+void Blitz::Octocanum::TuneF(int MotorID, double FGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, FGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, FGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, FGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, FGain, 30);
+            break;
+        
+    }
+}
+
+void Blitz::Octocanum::TuneP(int MotorID, double PGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, PGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, PGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, PGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, PGain, 30);
+            break;
+        
+    }
+
+}
+
+void Blitz::Octocanum::TuneI(int MotorID, double IGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, IGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, IGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, IGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, IGain, 30);
+            break;
+        
+    }
+
+}
+
+void Blitz::Octocanum::TuneD(int MotorID, double DGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, DGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, DGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, DGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, DGain, 30);
+            break;
+        
+    }
+}
+
 
 void Blitz::Octocanum::Initialize(Blitz::Models::OctocanumInput *Input)
 {
@@ -55,13 +136,13 @@ void Blitz::Octocanum::Initialize(Blitz::Models::OctocanumInput *Input)
     Motors->Motor4->Config_kI(0, Blitz::DriveReference::MOTOR4_kI, 30);
     Motors->Motor4->Config_kD(0, Blitz::DriveReference::MOTOR4_kD, 30);
     
-    Motors->Motor1->Set(ControlMode::Velocity, 0);
-    Motors->Motor2->Set(ControlMode::Velocity, 0);
-    Motors->Motor3->Set(ControlMode::Velocity, 0);
-    Motors->Motor4->Set(ControlMode::Velocity, 0);
+    Motors->Motor1->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor2->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor3->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor4->Set(ControlMode::PercentOutput, 0);
 }
 
-void Blitz::Octocanum::Drive()
+double* Blitz::Octocanum::Drive()
 {
     double motorValues[4];
 
@@ -86,7 +167,7 @@ void Blitz::Octocanum::Drive()
                 }
             }
 
-            if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_PID)
+            if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS)
             {
                 for (double checkValue : motorValues)
                 {
@@ -118,7 +199,7 @@ void Blitz::Octocanum::Drive()
                 }
             }
 
-            if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_PID)
+            if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS)
             {
                 for (double checkValue : motorValues)
                 {
@@ -136,10 +217,10 @@ void Blitz::Octocanum::Drive()
     {
         if(InputData->DriveMode == 0)
         {
-            motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-            motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-            motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-            motorValues[3] = (InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+            motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+            motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+            motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+            motorValues[3] = (InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
 
             double maxMagnitude = 0;
 
@@ -153,7 +234,7 @@ void Blitz::Octocanum::Drive()
                 }
             }
 
-            if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_NO_PID)
+            if (maxMagnitude > 1)
             {
                 for (double checkValue : motorValues)
                 {
@@ -168,10 +249,10 @@ void Blitz::Octocanum::Drive()
         }
         else if(InputData->DriveMode == 1)
         {
-            motorValues[0] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-            motorValues[1] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-            motorValues[2] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-            motorValues[3] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+            motorValues[0] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+            motorValues[1] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+            motorValues[2] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+            motorValues[3] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
 
             double maxMagnitude = 0;
 
@@ -185,7 +266,7 @@ void Blitz::Octocanum::Drive()
                 }
             }
 
-            if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_NO_PID)
+            if (maxMagnitude > 1)
             {
                 for (double checkValue : motorValues)
                 {
@@ -199,6 +280,8 @@ void Blitz::Octocanum::Drive()
             Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3]);
         }
     }
+
+    return motorValues;
 }
 
 void Blitz::Octocanum::Close()

@@ -1,17 +1,97 @@
 #include "Arcade.hpp"
 
-using namespace std;
-
 void Blitz::Arcade::SetMotorDirection(int Motor, int dir)
 {
     MotorDirs[Motor] = dir;
+}
+
+void Blitz::Arcade::TuneF(int MotorID, double FGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, FGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, FGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, FGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, FGain, 30);
+            break;
+        
+    }
+}
+
+void Blitz::Arcade::TuneP(int MotorID, double PGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, PGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, PGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, PGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, PGain, 30);
+            break;
+        
+    }
+
+}
+
+void Blitz::Arcade::TuneI(int MotorID, double IGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, IGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, IGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, IGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, IGain, 30);
+            break;
+        
+    }
+
+}
+
+void Blitz::Arcade::TuneD(int MotorID, double DGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, DGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, DGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, DGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, DGain, 30);
+            break;
+        
+    }
 }
 
 void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
 {
     InputData = Input;
     
-    Motors->Motor1->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor1->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor1->SetSensorPhase(true);
     Motors->Motor1->ConfigNominalOutputForward(0, 30);
     Motors->Motor1->ConfigNominalOutputReverse(0, 30);
@@ -22,7 +102,7 @@ void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
     Motors->Motor1->Config_kI(0, Blitz::DriveReference::MOTOR1_kI, 30);
     Motors->Motor1->Config_kD(0, Blitz::DriveReference::MOTOR1_kD, 30);
 
-    Motors->Motor2->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor2->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor2->SetSensorPhase(true);
     Motors->Motor2->ConfigNominalOutputForward(0, 30);
     Motors->Motor2->ConfigNominalOutputReverse(0, 30);
@@ -33,7 +113,7 @@ void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
     Motors->Motor2->Config_kI(0, Blitz::DriveReference::MOTOR2_kI, 30);
     Motors->Motor2->Config_kD(0, Blitz::DriveReference::MOTOR2_kD, 30);
 
-    Motors->Motor3->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor3->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor3->SetSensorPhase(true);
     Motors->Motor3->ConfigNominalOutputForward(0, 30);
     Motors->Motor3->ConfigNominalOutputReverse(0, 30);
@@ -44,7 +124,7 @@ void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
     Motors->Motor3->Config_kI(0, Blitz::DriveReference::MOTOR3_kI, 30);
     Motors->Motor3->Config_kD(0, Blitz::DriveReference::MOTOR3_kD, 30);
 
-    Motors->Motor4->ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative, 0, 30);
+    Motors->Motor4->ConfigSelectedFeedbackSensor(FeedbackDevice::QuadEncoder, 0, 30);
 	Motors->Motor4->SetSensorPhase(true);
     Motors->Motor4->ConfigNominalOutputForward(0, 30);
     Motors->Motor4->ConfigNominalOutputReverse(0, 30);
@@ -55,17 +135,17 @@ void Blitz::Arcade::Initialize(Blitz::Models::ArcadeInput *Input)
     Motors->Motor4->Config_kI(0, Blitz::DriveReference::MOTOR4_kI, 30);
     Motors->Motor4->Config_kD(0, Blitz::DriveReference::MOTOR4_kD, 30);
     
-    Motors->Motor1->Set(ControlMode::Velocity, 0);
-    Motors->Motor2->Set(ControlMode::Velocity, 0);
-    Motors->Motor3->Set(ControlMode::Velocity, 0);
-    Motors->Motor4->Set(ControlMode::Velocity, 0);
+    Motors->Motor1->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor2->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor3->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor4->Set(ControlMode::PercentOutput, 0);
 
 }
 
-void Blitz::Arcade::Run()
+double* Blitz::Arcade::Run()
 {
     double motorValues[4];
-
+    
     if(UsePID)
     {
         motorValues[0] = (InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
@@ -85,7 +165,7 @@ void Blitz::Arcade::Run()
             }
         }
 
-        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_PID)
+        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS)
         {
             for (double checkValue : motorValues)
             {
@@ -93,17 +173,17 @@ void Blitz::Arcade::Run()
             }
         }
 
-        Motors->Motor1->Set(ControlMode::Velocity, motorValues[0]);
-        Motors->Motor2->Set(ControlMode::Velocity, motorValues[1]);
-        Motors->Motor3->Set(ControlMode::Velocity, motorValues[2]);
-        Motors->Motor4->Set(ControlMode::Velocity, motorValues[3]);
+        Motors->Motor1->Set(ControlMode::Velocity, motorValues[0] * MotorDirs[0]);
+        Motors->Motor2->Set(ControlMode::Velocity, motorValues[1] * MotorDirs[1]);
+        Motors->Motor3->Set(ControlMode::Velocity, motorValues[2] * MotorDirs[2]);
+        Motors->Motor4->Set(ControlMode::Velocity, motorValues[3] * MotorDirs[3]);
     }
     else
     {
-        motorValues[0] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-        motorValues[1] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-        motorValues[2] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-        motorValues[3] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+        motorValues[0] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[1] = (InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[2] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[3] = (InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
 
         double maxMagnitude = 0;
 
@@ -117,7 +197,7 @@ void Blitz::Arcade::Run()
             }
         }
 
-        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_NO_PID)
+        if (maxMagnitude > 1)
         {
             for (double checkValue : motorValues)
             {
@@ -125,11 +205,13 @@ void Blitz::Arcade::Run()
             }
         }
 
-        Motors->Motor1->Set(ControlMode::PercentOutput, motorValues[0]);
-        Motors->Motor2->Set(ControlMode::PercentOutput, motorValues[1]);
-        Motors->Motor3->Set(ControlMode::PercentOutput, motorValues[2]);
-        Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3]);
+        Motors->Motor1->Set(ControlMode::PercentOutput, motorValues[0] * MotorDirs[0]);
+        Motors->Motor2->Set(ControlMode::PercentOutput, motorValues[1] * MotorDirs[1]);
+        Motors->Motor3->Set(ControlMode::PercentOutput, motorValues[2] * MotorDirs[2]);
+        Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3] * MotorDirs[3]);
     }
+
+    return motorValues;
 }
 
 void Blitz::Arcade::Close()

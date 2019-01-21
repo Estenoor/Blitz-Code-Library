@@ -2,8 +2,8 @@
 
 #include <frc/WPILib.h>
 
-#include "BlitzLogger.hpp"
 #include "DataTypes.hpp"
+#include "BlitzLogger.hpp"
 #include "DriveReferences.hpp"
 
 using namespace std;
@@ -13,7 +13,6 @@ namespace Blitz
 {
     class Mecanum
     {
-
         public:
             Mecanum(Blitz::Models::DriveMotors *Motors,  Blitz::BlitzLogger *Logger)
             {
@@ -22,8 +21,13 @@ namespace Blitz
             }
 
             void SetMotorDirection(int Motor, int dir);
+            void TuneF(int MotorID, double FGain);
+            void TuneP(int MotorID, double PGain);
+            void TuneI(int MotorID, double IGain);
+            void TuneD(int MotorID, double DGain);
+
             void Initialize(Blitz::Models::MecanumInput *Input);
-            void Drive();
+            double* Drive();
             void Close();
             
             bool UsePID = false;

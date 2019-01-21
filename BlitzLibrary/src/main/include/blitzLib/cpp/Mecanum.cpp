@@ -1,10 +1,90 @@
 #include "Mecanum.hpp"
 
-using namespace std;
-
 void Blitz::Mecanum::SetMotorDirection(int Motor, int dir)
 {
     MotorDirs[Motor] = dir;
+}
+
+void Blitz::Mecanum::TuneF(int MotorID, double FGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, FGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, FGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, FGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, FGain, 30);
+            break;
+        
+    }
+}
+
+void Blitz::Mecanum::TuneP(int MotorID, double PGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, PGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, PGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, PGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, PGain, 30);
+            break;
+        
+    }
+
+}
+
+void Blitz::Mecanum::TuneI(int MotorID, double IGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, IGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, IGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, IGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, IGain, 30);
+            break;
+        
+    }
+
+}
+
+void Blitz::Mecanum::TuneD(int MotorID, double DGain)
+{
+    switch(MotorID)
+    {
+        case 1 :
+            Motors->Motor1->Config_kF(0, DGain, 30);
+            break;
+        case 2 :
+            Motors->Motor2->Config_kF(0, DGain, 30);
+            break;
+        case 3 :
+            Motors->Motor3->Config_kF(0, DGain, 30);
+            break;
+        case 4 :
+            Motors->Motor4->Config_kF(0, DGain, 30);
+            break;
+        
+    }
 }
 
 void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
@@ -55,19 +135,19 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
     Motors->Motor4->Config_kI(0, Blitz::DriveReference::MOTOR4_kI, 30);
     Motors->Motor4->Config_kD(0, Blitz::DriveReference::MOTOR4_kD, 30);
     
-    Motors->Motor1->Set(ControlMode::Velocity, 0);
-    Motors->Motor2->Set(ControlMode::Velocity, 0);
-    Motors->Motor3->Set(ControlMode::Velocity, 0);
-    Motors->Motor4->Set(ControlMode::Velocity, 0);
+    Motors->Motor1->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor2->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor3->Set(ControlMode::PercentOutput, 0);
+    Motors->Motor4->Set(ControlMode::PercentOutput, 0);
 
 }
 
- void Blitz::Mecanum::Drive()
- {
+double* Blitz::Mecanum::Drive()
+{
     double motorValues[4];
 
-     if(UsePID)
-     {
+    if(UsePID)
+    {
         motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
         motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
         motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
@@ -85,7 +165,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
             }
         }
 
-        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_PID)
+        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS)
         {
             for (double checkValue : motorValues)
             {
@@ -100,15 +180,10 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
     }
     else
     {
-        Motors->Motor1->Set(ControlMode::PercentOutput, (InputData->XValue + InputData->YValue + InputData->ZValue));
-        Motors->Motor2->Set(ControlMode::PercentOutput, (-InputData->XValue + InputData->YValue + InputData->ZValue));
-        Motors->Motor3->Set(ControlMode::PercentOutput, (-InputData->XValue + InputData->YValue - InputData->ZValue));
-        Motors->Motor4->Set(ControlMode::PercentOutput, (InputData->XValue + InputData->YValue - InputData->ZValue));
-        
-        motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-        motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-        motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
-        motorValues[3] = (InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_NO_PID;
+        motorValues[0] = (InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[1] = (-InputData->XValue + InputData->YValue + InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[2] = (-InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[3] = (InputData->XValue + InputData->YValue - InputData->ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
 
         double maxMagnitude = 0;
 
@@ -122,7 +197,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
             }
         }
 
-        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_NO_PID)
+        if (maxMagnitude > 1)
         {
             for (double checkValue : motorValues)
             {
@@ -135,9 +210,11 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
         Motors->Motor3->Set(ControlMode::PercentOutput, motorValues[2]);
         Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3]);
     }
- }
 
- void Blitz::Mecanum::Close()
- {
+    return motorValues;
+}
 
- }
+void Blitz::Mecanum::Close()
+{
+
+}

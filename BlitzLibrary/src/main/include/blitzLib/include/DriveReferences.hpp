@@ -9,18 +9,17 @@ namespace Blitz
     class DriveReference
     {
         public:
-            static constexpr double WHEEL_RADIUS = 0.1016; //Radius of the wheel in Meters
-            static constexpr double ENCODER_UNITS_PER_ROTATION = 4096;
+            static constexpr double WHEEL_RADIUS = 0.0508; //Radius of the wheel in Meters
+            static constexpr double ENCODER_UNITS_PER_ROTATION = 370;
+            static constexpr double MAX_RPM = 160;
 
-            static constexpr double MAX_RPM = 100;
-
-            static constexpr double WHEEL_CIRCUMFERENCE = 3.14 * WHEEL_RADIUS;
+            static constexpr double WHEEL_CIRCUMFERENCE = 3.14 * (2 * WHEEL_RADIUS);
             static constexpr double ROTATIONS_PER_METER = 1/WHEEL_CIRCUMFERENCE;
             static constexpr double ENCODER_UNITS_PER_METER = ROTATIONS_PER_METER * ENCODER_UNITS_PER_ROTATION;
             static constexpr double SECOND_TO_HUNDERD_MILLISECOND_CONVERSION = 10;
 
-            static constexpr double MAX_SPEED_PID = ((MAX_RPM/60) * ENCODER_UNITS_PER_ROTATION)/SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-            static constexpr double MAX_SPEED_NO_PID = (MAX_RPM/60) * ROTATIONS_PER_METER;
+            static constexpr double MAX_SPEED_METERS_PER_SECOND = (MAX_RPM/60) * ROTATIONS_PER_METER;
+            static constexpr double MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS = (MAX_SPEED_METERS_PER_SECOND * ENCODER_UNITS_PER_METER)/SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
 
 
             static constexpr double MOTOR1_kF = 0;

@@ -21,8 +21,13 @@ namespace Blitz
             }
 
             void SetMotorDirection(int Motor, int dir);
+            void TuneF(int MotorID, double FGain);
+            void TuneP(int MotorID, double PGain);
+            void TuneI(int MotorID, double IGain);
+            void TuneD(int MotorID, double DGain);
+
             void Initialize(Blitz::Models::TankInput *Input);
-            void Run();
+            double* Run();
             void Close();
             
             bool UsePID = false;
