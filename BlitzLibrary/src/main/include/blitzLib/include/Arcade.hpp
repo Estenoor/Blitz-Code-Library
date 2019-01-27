@@ -26,17 +26,19 @@ namespace Blitz
             void TuneI(int MotorID, double IGain);
             void TuneD(int MotorID, double DGain);
 
+            double GetMotorOutput(int MotorID);
+
             void Initialize(Blitz::Models::ArcadeInput *Input);
-            double* Run();
+            void Run();
             void Close();
             
             bool UsePID = false;
-            int DebugMotorID = 1;
 
         private:
             Blitz::BlitzLogger *Logger;
             Blitz::Models::ArcadeInput *InputData;
             Blitz::Models::DriveMotors *Motors;
             int MotorDirs[4] = {1, 1, 1, 1};
+            double motorValues[4] = {0, 0, 0, 0};
     };
 }

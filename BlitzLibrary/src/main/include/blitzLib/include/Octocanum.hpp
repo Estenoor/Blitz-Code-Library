@@ -26,8 +26,10 @@ namespace Blitz
             void TuneI(int MotorID, double IGain);
             void TuneD(int MotorID, double DGain);
 
+            double GetMotorOutput(int MotorID);
+
             void Initialize(Blitz::Models::OctocanumInput *Input);
-            double* Drive();
+            void Run();
             void Close();
             
             bool UsePID = false;
@@ -37,6 +39,7 @@ namespace Blitz
             Blitz::Models::OctocanumInput *InputData;
             Blitz::Models::DriveMotors *Motors;
             int MotorDirs[4] = {1, 1, 1, 1};
+            double motorValues[4] = {0, 0, 0, 0};
 
     };
 }

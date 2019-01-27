@@ -30,16 +30,16 @@ void Blitz::Mecanum::TuneP(int MotorID, double PGain)
     switch(MotorID)
     {
         case 1 :
-            Motors->Motor1->Config_kF(0, PGain, 30);
+            Motors->Motor1->Config_kP(0, PGain, 30);
             break;
         case 2 :
-            Motors->Motor2->Config_kF(0, PGain, 30);
+            Motors->Motor2->Config_kP(0, PGain, 30);
             break;
         case 3 :
-            Motors->Motor3->Config_kF(0, PGain, 30);
+            Motors->Motor3->Config_kP(0, PGain, 30);
             break;
         case 4 :
-            Motors->Motor4->Config_kF(0, PGain, 30);
+            Motors->Motor4->Config_kP(0, PGain, 30);
             break;
         
     }
@@ -51,16 +51,16 @@ void Blitz::Mecanum::TuneI(int MotorID, double IGain)
     switch(MotorID)
     {
         case 1 :
-            Motors->Motor1->Config_kF(0, IGain, 30);
+            Motors->Motor1->Config_kI(0, IGain, 30);
             break;
         case 2 :
-            Motors->Motor2->Config_kF(0, IGain, 30);
+            Motors->Motor2->Config_kI(0, IGain, 30);
             break;
         case 3 :
-            Motors->Motor3->Config_kF(0, IGain, 30);
+            Motors->Motor3->Config_kI(0, IGain, 30);
             break;
         case 4 :
-            Motors->Motor4->Config_kF(0, IGain, 30);
+            Motors->Motor4->Config_kI(0, IGain, 30);
             break;
         
     }
@@ -72,19 +72,24 @@ void Blitz::Mecanum::TuneD(int MotorID, double DGain)
     switch(MotorID)
     {
         case 1 :
-            Motors->Motor1->Config_kF(0, DGain, 30);
+            Motors->Motor1->Config_kD(0, DGain, 30);
             break;
         case 2 :
-            Motors->Motor2->Config_kF(0, DGain, 30);
+            Motors->Motor2->Config_kD(0, DGain, 30);
             break;
         case 3 :
-            Motors->Motor3->Config_kF(0, DGain, 30);
+            Motors->Motor3->Config_kD(0, DGain, 30);
             break;
         case 4 :
-            Motors->Motor4->Config_kF(0, DGain, 30);
+            Motors->Motor4->Config_kD(0, DGain, 30);
             break;
         
     }
+}
+
+double Blitz::Mecanum::GetMotorOutput(int MotorID)
+{
+    return motorValues[MotorID - 1];
 }
 
 void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
@@ -142,7 +147,7 @@ void Blitz::Mecanum::Initialize(Blitz::Models::MecanumInput *Input)
 
 }
 
-double* Blitz::Mecanum::Drive()
+void Blitz::Mecanum::Run()
 {
     double motorValues[4];
 
@@ -167,9 +172,9 @@ double* Blitz::Mecanum::Drive()
 
         if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS)
         {
-            for (double checkValue : motorValues)
+            for (int i = 0; i < 4; i++)
             {
-                checkValue = checkValue / maxMagnitude;
+                motorValues[i] = (motorValues[i] / maxMagnitude) * Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS;
             }
         }
 
@@ -199,9 +204,9 @@ double* Blitz::Mecanum::Drive()
 
         if (maxMagnitude > 1)
         {
-            for (double checkValue : motorValues)
+            for (int i = 0; i < 4; i++)
             {
-                checkValue = checkValue / maxMagnitude;
+                motorValues[i] = motorValues[i] / maxMagnitude;
             }
         }
 
@@ -210,8 +215,6 @@ double* Blitz::Mecanum::Drive()
         Motors->Motor3->Set(ControlMode::PercentOutput, motorValues[2]);
         Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3]);
     }
-
-    return motorValues;
 }
 
 void Blitz::Mecanum::Close()

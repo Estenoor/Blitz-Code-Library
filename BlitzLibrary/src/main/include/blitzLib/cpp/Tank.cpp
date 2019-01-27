@@ -30,16 +30,16 @@ void Blitz::Tank::TuneP(int MotorID, double PGain)
     switch(MotorID)
     {
         case 1 :
-            Motors->Motor1->Config_kF(0, PGain, 30);
+            Motors->Motor1->Config_kP(0, PGain, 30);
             break;
         case 2 :
-            Motors->Motor2->Config_kF(0, PGain, 30);
+            Motors->Motor2->Config_kP(0, PGain, 30);
             break;
         case 3 :
-            Motors->Motor3->Config_kF(0, PGain, 30);
+            Motors->Motor3->Config_kP(0, PGain, 30);
             break;
         case 4 :
-            Motors->Motor4->Config_kF(0, PGain, 30);
+            Motors->Motor4->Config_kP(0, PGain, 30);
             break;
         
     }
@@ -51,16 +51,16 @@ void Blitz::Tank::TuneI(int MotorID, double IGain)
     switch(MotorID)
     {
         case 1 :
-            Motors->Motor1->Config_kF(0, IGain, 30);
+            Motors->Motor1->Config_kI(0, IGain, 30);
             break;
         case 2 :
-            Motors->Motor2->Config_kF(0, IGain, 30);
+            Motors->Motor2->Config_kI(0, IGain, 30);
             break;
         case 3 :
-            Motors->Motor3->Config_kF(0, IGain, 30);
+            Motors->Motor3->Config_kI(0, IGain, 30);
             break;
         case 4 :
-            Motors->Motor4->Config_kF(0, IGain, 30);
+            Motors->Motor4->Config_kI(0, IGain, 30);
             break;
         
     }
@@ -72,21 +72,25 @@ void Blitz::Tank::TuneD(int MotorID, double DGain)
     switch(MotorID)
     {
         case 1 :
-            Motors->Motor1->Config_kF(0, DGain, 30);
+            Motors->Motor1->Config_kD(0, DGain, 30);
             break;
         case 2 :
-            Motors->Motor2->Config_kF(0, DGain, 30);
+            Motors->Motor2->Config_kD(0, DGain, 30);
             break;
         case 3 :
-            Motors->Motor3->Config_kF(0, DGain, 30);
+            Motors->Motor3->Config_kD(0, DGain, 30);
             break;
         case 4 :
-            Motors->Motor4->Config_kF(0, DGain, 30);
+            Motors->Motor4->Config_kD(0, DGain, 30);
             break;
         
     }
 }
 
+double Blitz::Tank::GetMotorOutput(int MotorID)
+{
+    return motorValues[MotorID - 1];
+}
 
 void Blitz::Tank::Initialize(Blitz::Models::TankInput *Input)
 {
@@ -143,9 +147,8 @@ void Blitz::Tank::Initialize(Blitz::Models::TankInput *Input)
 
 }
 
-double* Blitz::Tank::Run()
+void Blitz::Tank::Run()
 {
-    double motorValues[4];
 
     if(UsePID)
     {
@@ -200,9 +203,9 @@ double* Blitz::Tank::Run()
 
         if (maxMagnitude > 1)
         {
-            for (double checkValue : motorValues)
+            for (int i = 0; i < 4; i++)
             {
-                checkValue = checkValue / maxMagnitude;
+                motorValues[i] = motorValues[i] / maxMagnitude;
             }
         }
 
@@ -212,8 +215,6 @@ double* Blitz::Tank::Run()
         Motors->Motor4->Set(ControlMode::PercentOutput, motorValues[3] * MotorDirs[3]);
  
     }
-
-    return motorValues;
 }
 
 void Blitz::Tank::Close()

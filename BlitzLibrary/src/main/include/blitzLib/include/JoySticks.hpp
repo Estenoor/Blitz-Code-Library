@@ -34,22 +34,22 @@ namespace Blitz
                 double RightTrigger = 0;
 
                 //Button ids
-                const int A_BUTTON_ID = 0;
-                const int B_BUTTON_ID = 0;
-                const int X_BUTTON_ID = 0;
-                const int Y_BUTTON_ID = 0;
-                const int LEFT_BUMPER_ID = 0;
-                const int RIGHT_BUMPER_ID = 0;
-                const int LEFT_STICK_BUTTON_ID = 0;
-                const int RIGHT_STICK_BUTTON_ID = 0;
+                const int A_BUTTON_ID = 1;
+                const int B_BUTTON_ID = 2;
+                const int X_BUTTON_ID = 3;
+                const int Y_BUTTON_ID = 4;
+                const int LEFT_BUMPER_ID = 5;
+                const int RIGHT_BUMPER_ID = 6;
+                const int LEFT_STICK_BUTTON_ID = 9;
+                const int RIGHT_STICK_BUTTON_ID = 10;
 
                 //axis ids
                 const int LEFT_X_AXIS_ID = 0;
-                const int LEFT_Y_AXIS_ID = 0;
-                const int RIGHT_X_AXIS_ID = 0;
-                const int RIGHT_Y_AXIS_ID = 0;
-                const int LEFT_TRIGGER_ID = 0;
-                const int RIGHT_TRIGGER_ID = 0;
+                const int LEFT_Y_AXIS_ID = 1;
+                const int RIGHT_X_AXIS_ID = 4;
+                const int RIGHT_Y_AXIS_ID = 5;
+                const int LEFT_TRIGGER_ID = 2;
+                const int RIGHT_TRIGGER_ID = 3;
 
                 void update();
 
