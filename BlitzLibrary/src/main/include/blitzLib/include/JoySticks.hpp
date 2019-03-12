@@ -8,22 +8,49 @@ namespace Blitz
 {
     namespace Joysticks
     {
-        class XboxController
+        class XboxController : frc::Joystick
         {
             public:
-                int port;
 
-                Joystick Xbox;
+                XboxController(int port) :
+                    Joystick(port)
+                {
+
+                }
+
+                void update();
+
+                bool GetAButton();
+                bool GetBButton();
+                bool GetXButton();
+                bool GetYButton();
+                bool GetLeftBumper();
+                bool GetRightBumper();
+                bool GetSelectButton();
+                bool GetStartButton();
+                bool GetLeftStickButton();
+                bool GetRightStickButton();
+
+                double GetLeftX();
+                double GetLeftY();
+                double GetRightX();
+                double GetRightY();
+                double GetLeftTrigger();
+                double GetRightTrigger();
+
+            private:
 
                 //Buttons
-                bool AButton = 0;
-                bool BButton = 0;
-                bool XButton = 0;
-                bool YButton = 0;
-                bool LeftBumper = 0;
-                bool RightBumper = 0;
-                bool LeftStickButton = 0;
-                bool RightStickButton = 0;
+                bool AButton = false;
+                bool BButton = false;
+                bool XButton = false;
+                bool YButton = false;
+                bool LeftBumper = false;
+                bool RightBumper = false;
+                bool SelectButton = false;
+                bool StartButton = false;
+                bool LeftStickButton = false;
+                bool RightStickButton = false;
 
                 //axis
                 double LeftX = 0;
@@ -40,31 +67,18 @@ namespace Blitz
                 const int Y_BUTTON_ID = 4;
                 const int LEFT_BUMPER_ID = 5;
                 const int RIGHT_BUMPER_ID = 6;
+                const int SELECT_BUTTON = 7;
+                const int START_BUTTON = 8;
                 const int LEFT_STICK_BUTTON_ID = 9;
                 const int RIGHT_STICK_BUTTON_ID = 10;
 
                 //axis ids
                 const int LEFT_X_AXIS_ID = 0;
                 const int LEFT_Y_AXIS_ID = 1;
-                const int RIGHT_X_AXIS_ID = 4;
-                const int RIGHT_Y_AXIS_ID = 5;
                 const int LEFT_TRIGGER_ID = 2;
                 const int RIGHT_TRIGGER_ID = 3;
-
-                void update();
-
-                XboxController() :
-                    Xbox(0)
-                {
-
-                }
-
-                XboxController(int port):
-                    Xbox(port)
-                {
-                    this->port = port;
-                }
-
+                const int RIGHT_X_AXIS_ID = 4;
+                const int RIGHT_Y_AXIS_ID = 5;
 
         };
 
