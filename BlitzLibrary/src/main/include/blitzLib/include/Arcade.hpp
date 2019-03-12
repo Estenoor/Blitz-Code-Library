@@ -15,6 +15,7 @@ namespace Blitz
             {
                this->Input = Input;
             }
+            
             void Initialize() override;
             void Drive() override;
             void Close() override;
