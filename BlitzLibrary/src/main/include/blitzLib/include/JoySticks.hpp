@@ -6,19 +6,35 @@ using namespace frc;
 
 namespace Blitz
 {
+    class JoystickInterface : public frc::Joystick
+    {
+        public:
+            JoystickInterface(int port) :
+                Joystick(port)
+            {
+
+            }
+
+            virtual void update();
+
+        protected:
+            double RampAxis(double inputValue, double rampedValue, double center, double deadband, double rampRate);
+
+    };
+
     namespace Joysticks
     {
-        class XboxController : frc::Joystick
+        class XboxController : public Blitz::JoystickInterface
         {
             public:
 
                 XboxController(int port) :
-                    Joystick(port)
+                    JoystickInterface(port)
                 {
 
                 }
 
-                void update();
+                void update() override;
 
                 bool GetAButton();
                 bool GetBButton();
@@ -38,6 +54,30 @@ namespace Blitz
                 double GetLeftTrigger();
                 double GetRightTrigger();
 
+                void ReCenterLeftX();
+                void ReCenterLeftY();
+                void ReCenterRightX();
+                void ReCenterRightY();
+                void ReCenterLeftTrigger();
+                void ReCenterRightTrigger();
+
+                void SetUniversalDeadband(double Deadband);
+                void SetLeftXDeadband(double Deadband);
+                void SetLeftYDeadband(double Deadband);
+                void SetRightXDeadband(double Deadband);
+                void SetRightYDeadband(double Deadband);
+                void SetLeftTriggerDeadband(double Deadband);
+                void SetRightTriggerDeadband(double Deadband);
+
+                void SetUniversalRampRate(double RampRate);
+                void SetLeftXRampRate(double RampRate);
+                void SetLeftYRampRate(double RampRate);
+                void SetRightXRampRate(double RampRate);
+                void SetRightYRampRate(double RampRate);
+                void SetLeftTriggerRampRate(double RampRate);
+                void SetRightTriggerRampRate(double RampRate);
+
+
             private:
 
                 //Buttons
@@ -52,13 +92,46 @@ namespace Blitz
                 bool LeftStickButton = false;
                 bool RightStickButton = false;
 
-                //axis
+                //Axes
                 double LeftX = 0;
                 double LeftY = 0;
                 double RightX = 0;
                 double RightY = 0;
                 double LeftTrigger = 0;
                 double RightTrigger = 0;
+
+                //Ramped Axes
+                double LeftXRamp = 0;
+                double LeftYRamp = 0;
+                double RightXRamp = 0;
+                double RightYRamp = 0;
+                double LeftTriggerRamp = 0;
+                double RightTriggerRamp = 0;
+
+                //Axis Centers
+                double LeftXCenter = 0;
+                double LeftYCenter = 0;
+                double RightXCenter = 0;
+                double RightYCenter = 0;
+                double LeftTriggerCenter = 0;
+                double RightTriggerCenter = 0;
+
+                //Axis Deadbands
+                double LeftXDeadband = 0;
+                double LeftYDeadband = 0;
+                double RightXDeadband = 0;
+                double RightYDeadband = 0;
+                double LeftTriggerDeadband = 0;
+                double RightTriggerDeadband = 0;
+
+                //Axis Ramp Rates
+                double LeftXRampRate = 0;
+                double LeftYRampRate = 0;
+                double RightXRampRate = 0;
+                double RightYRampRate = 0;
+                double LeftTriggerRampRate = 0;
+                double RightTriggerRampRate = 0;
+
 
                 //Button ids
                 const int A_BUTTON_ID = 1;
@@ -82,13 +155,37 @@ namespace Blitz
 
         };
 
-        class ThreeAxisJoystick
+        class ThreeAxisJoystick : public Blitz::JoystickInterface
         {
             public:
-                int port = 0;
 
-                Joystick ThreeAxis;
+                ThreeAxisJoystick(int port) :
+                    JoystickInterface(port)
+                {
 
+                }
+
+                void update() override;
+
+                bool GetTrigger();
+                bool GetButton2();
+                bool GetButton3();
+                bool GetButton4();
+                bool GetButton5();
+                bool GetButton6();
+                bool GetButton7();
+                bool GetButton8();
+                bool GetButton9();
+                bool GetButton10();
+                bool GetButton11();
+                bool GetButton12();
+
+                double GetXAxis();
+                double GetYAxis();
+                double GetZAxis();
+                double GetDial();
+
+            private:
                 //Buttons
                 bool Trigger = 0;
                 bool Button2 = 0;
@@ -103,7 +200,7 @@ namespace Blitz
                 bool Button11 = 0;
                 bool Button12= 0;
 
-                //axis
+                //axes
                 double XAxis = 0;
                 double YAxis = 0;
                 double ZAxis = 0;
@@ -129,26 +226,34 @@ namespace Blitz
                 const int Z_AXIS_ID = 2;
                 const int DIAL_ID = 3;
 
-                void update();
-
-                ThreeAxisJoystick() :
-                    ThreeAxis(0)
-                {
-
-                }
-
-                ThreeAxisJoystick(int port) :
-                    ThreeAxis(port)
-                {
-                    this->port = port; 
-                }
         };
 
-        class TwoAxisJoystick
+        class TwoAxisJoystick : public Blitz::JoystickInterface
         {
             public:
-                int port = 0;
-                Joystick TwoAxis;
+
+                TwoAxisJoystick(int port) :
+                    JoystickInterface(port)
+                {
+
+                }
+
+                void update() override;
+
+                bool GetTrigger();
+                bool GetButton2();
+                bool GetButton3();
+                bool GetButton4();
+                bool GetButton5();
+                bool GetButton6();
+                bool GetButton7();
+                bool GetButton8();
+
+                double GetXAxis();
+                double GetYAxis();
+                double GetDial();
+
+            private:
 
                 //Buttons
                 bool Trigger = 0;
@@ -160,7 +265,7 @@ namespace Blitz
                 bool Button7 = 0;
                 bool Button8 = 0;
 
-                //Axis
+                //Axes
                 double XAxis = 0;
                 double YAxis = 0;
                 double Dial = 0;
@@ -179,20 +284,6 @@ namespace Blitz
                 const int X_AXIS_ID = 0;
                 const int Y_AXIS_ID = 1;
                 const int DIAL_ID = 2;
-
-                void update();
-
-                TwoAxisJoystick() :
-                    TwoAxis(0)
-                {
-
-                }
-
-                TwoAxisJoystick(int port) :
-                    TwoAxis(port)
-                {
-                    this->port = port; 
-                }
 
         };   
     }

@@ -74,30 +74,188 @@ bool Blitz::Joysticks::XboxController::GetRightStickButton()
 
 double Blitz::Joysticks::XboxController::GetLeftX()
 {
-    return LeftX;
+    if(LeftXRampRate <= 0)
+    {
+        return LeftX;
+    }
+    else
+    {
+        LeftXRamp = RampAxis(LeftX, LeftXRamp, LeftXCenter, LeftXDeadband, LeftXRampRate);
+        return LeftXRamp;
+    }
 }
 
 double Blitz::Joysticks::XboxController::GetLeftY()
 {
-    return LeftY;
+    if(LeftYRampRate <= 0)
+    {
+        return LeftY;
+    }
+    else
+    {
+        LeftYRamp = RampAxis(LeftY, LeftYRamp, LeftYCenter, LeftYDeadband, LeftYRampRate);
+        return LeftYRamp;
+    }
 }
 
 double Blitz::Joysticks::XboxController::GetRightX()
 {
-    return RightX;
+    if(RightXRampRate <= 0)
+    {
+        return RightX;
+    }
+    else
+    {
+        RightXRamp = RampAxis(RightX, RightXRamp, RightXCenter, RightXDeadband, RightXRampRate);
+        return RightXRamp;
+    }
 }
 
 double Blitz::Joysticks::XboxController::GetRightY()
 {
-    return RightY;
+    if(RightYRampRate <= 0)
+    {
+        return RightY;
+    }
+    else
+    {
+        RightYRamp = RampAxis(RightY, RightYRamp, RightYCenter, RightYDeadband, RightYRampRate);
+        return RightYRamp;
+    }
 }
 
 double Blitz::Joysticks::XboxController::GetLeftTrigger()
 {
-    return LeftTrigger;
+    if(LeftTriggerRampRate <= 0)
+    {
+        return LeftTrigger;
+    }
+    else
+    {
+        LeftTriggerRamp = RampAxis(LeftTrigger, LeftTriggerRamp, LeftTriggerCenter, LeftTriggerDeadband, LeftTriggerRampRate);
+        return LeftTriggerRamp;
+    }
 }
 
 double Blitz::Joysticks::XboxController::GetRightTrigger()
 {
-    return RightTrigger;
+    if(RightTriggerRampRate <= 0)
+    {
+        return RightTrigger;
+    }
+    else
+    {
+        RightTriggerRamp = RampAxis(RightTrigger, RightTriggerRamp, RightTriggerCenter, RightTriggerDeadband, RightTriggerRampRate);
+        return RightTriggerRamp;
+    }
+}
+
+void Blitz::Joysticks::XboxController::ReCenterLeftX()
+{
+    LeftXCenter = GetRawAxis(LEFT_X_AXIS_ID);
+}
+
+void Blitz::Joysticks::XboxController::ReCenterLeftY()
+{
+    LeftYCenter = GetRawAxis(LEFT_Y_AXIS_ID);
+}
+
+void Blitz::Joysticks::XboxController::ReCenterRightX()
+{
+    RightXCenter = GetRawAxis(RIGHT_X_AXIS_ID);
+}
+
+void Blitz::Joysticks::XboxController::ReCenterRightY()
+{
+    RightYCenter = GetRawAxis(RIGHT_Y_AXIS_ID);
+}
+
+void Blitz::Joysticks::XboxController::ReCenterLeftTrigger()
+{
+    LeftTriggerCenter = GetRawAxis(LEFT_TRIGGER_ID);
+}
+
+void Blitz::Joysticks::XboxController::ReCenterRightTrigger()
+{
+    RightTriggerCenter = GetRawAxis(RIGHT_TRIGGER_ID);
+}
+
+void Blitz::Joysticks::XboxController::SetUniversalDeadband(double Deadband)
+{
+    LeftXDeadband = Deadband;
+    LeftYDeadband = Deadband;
+    RightXDeadband = Deadband;
+    RightYDeadband = Deadband;
+    LeftTriggerDeadband = Deadband;
+    RightTriggerDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetLeftXDeadband(double Deadband)
+{
+    LeftXDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetLeftYDeadband(double Deadband)
+{
+    LeftYDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetRightXDeadband(double Deadband)
+{
+    RightXDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetRightYDeadband(double Deadband)
+{
+    RightYDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetLeftTriggerDeadband(double Deadband)
+{
+    LeftTriggerDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetRightTriggerDeadband(double Deadband)
+{
+    RightTriggerDeadband = Deadband;
+}
+
+void Blitz::Joysticks::XboxController::SetUniversalRampRate(double RampRate)
+{
+    LeftXRampRate = RampRate;
+    LeftYRampRate = RampRate;
+    RightXRampRate = RampRate;
+    RightYRampRate = RampRate;
+    LeftTriggerRampRate = RampRate;
+    RightTriggerRampRate = RampRate;
+}
+
+void Blitz::Joysticks::XboxController::SetLeftXRampRate(double RampRate)
+{
+    LeftXRampRate = RampRate;
+}
+
+void Blitz::Joysticks::XboxController::SetLeftYRampRate(double RampRate)
+{
+    LeftYRampRate = RampRate;
+}
+
+void Blitz::Joysticks::XboxController::SetRightXRampRate(double RampRate)
+{
+    RightXRampRate = RampRate;
+}
+
+void Blitz::Joysticks::XboxController::SetRightYRampRate(double RampRate)
+{
+    RightYRampRate = RampRate;
+}
+
+void Blitz::Joysticks::XboxController::SetLeftTriggerRampRate(double RampRate)
+{
+    LeftTriggerRampRate = RampRate;
+}
+
+void Blitz::Joysticks::XboxController::SetRightTriggerRampRate(double RampRate)
+{
+    RightTriggerRampRate = RampRate;
 }
