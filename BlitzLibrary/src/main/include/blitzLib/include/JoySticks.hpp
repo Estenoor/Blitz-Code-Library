@@ -15,7 +15,7 @@ namespace Blitz
 
             }
 
-            virtual void update();
+            virtual void update() {}
 
         protected:
             double RampAxis(double inputValue, double rampedValue, double center, double deadband, double rampRate);
@@ -185,6 +185,23 @@ namespace Blitz
                 double GetZAxis();
                 double GetDial();
 
+                void ReCenterXAxis();
+                void ReCenterYAxis();
+                void ReCenterZAxis();
+                void ReCenterDial();
+
+                void SetUniversalDeadband(double Deadband);
+                void SetXAxisDeadband(double Deadband);
+                void SetYAxisDeadband(double Deadband);
+                void SetZAxisDeadband(double Deadband);
+                void SetDialDeadband(double Deadband);
+
+                void SetUniversalRampRate(double RampRate);
+                void SetXAxisRampRate(double RampRate);
+                void SetYAxisRampRate(double RampRate);
+                void SetZAxisRampRate(double RampRate);
+                void SetDialRampRate(double RampRate);
+
             private:
                 //Buttons
                 bool Trigger = 0;
@@ -205,6 +222,30 @@ namespace Blitz
                 double YAxis = 0;
                 double ZAxis = 0;
                 double Dial = 0;
+
+                //Ramped Axes
+                double XAxisRamp = 0;
+                double YAxisRamp = 0;
+                double ZAxisRamp = 0;
+                double DialRamp = 0;
+
+                //Axis Centers
+                double XAxisCenter = 0;
+                double YAxisCenter = 0;
+                double ZAxisCenter = 0;
+                double DialCenter = 0;
+
+                //Axis RampRates
+                double XAxisRampRate = 0;
+                double YAxisRampRate = 0;
+                double ZAxisRampRate = 0;
+                double DialRampRate = 0;
+
+                //Axis Deadbands
+                double XAxisDeadband = 0;
+                double YAxisDeadband = 0;
+                double ZAxisDeadband = 0;
+                double DialDeadband = 0;
 
                 //Button IDs
                 const int TRIGGER_ID = 1;
@@ -253,6 +294,20 @@ namespace Blitz
                 double GetYAxis();
                 double GetDial();
 
+                void ReCenterXAxis();
+                void ReCenterYAxis();
+                void ReCenterDial();
+
+                void SetUniversalDeadband(double Deadband);
+                void SetXAxisDeadband(double Deadband);
+                void SetYAxisDeadband(double Deadband);
+                void SetDialDeadband(double Deadband);
+
+                void SetUniversalRampRate(double RampRate);
+                void SetXAxisRampRate(double RampRate);
+                void SetYAxisRampRate(double RampRate);
+                void SetDialRampRate(double RampRate);
+
             private:
 
                 //Buttons
@@ -269,6 +324,26 @@ namespace Blitz
                 double XAxis = 0;
                 double YAxis = 0;
                 double Dial = 0;
+
+                //Ramped Axes
+                double XAxisRamp = 0;
+                double YAxisRamp = 0;
+                double DialRamp = 0;
+
+                //Axis Centers
+                double XAxisCenter = 0;
+                double YAxisCenter = 0;
+                double DialCenter = 0;
+
+                //Axis RampRates
+                double XAxisRampRate = 0;
+                double YAxisRampRate = 0;
+                double DialRampRate = 0;
+
+                //Axis Deadbands
+                double XAxisDeadband = 0;
+                double YAxisDeadband = 0;
+                double DialDeadband = 0;
 
                 //Button IDs
                 const int TRIGGER_ID = 1;

@@ -23,9 +23,9 @@ namespace Blitz
             void TuneI(int MotorID, double IGain);
             void TuneD(int MotorID, double DGain);
 
-            virtual void Initialize();
-            virtual void Drive();
-            virtual void Close();
+            virtual void Initialize() {}
+            virtual void Drive() {}
+            virtual void Close() {}
 
         protected:
             Blitz::BlitzLogger *Logger;
