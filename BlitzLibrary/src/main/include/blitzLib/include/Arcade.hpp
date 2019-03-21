@@ -1,44 +1,26 @@
 #pragma once
 
-#include <frc/WPILib.h>
-
-#include "DataTypes.hpp"
-#include "BlitzLogger.hpp"
-#include "DriveReferences.hpp"
+#include "DriveTrain.hpp"
 
 using namespace std;
 using namespace frc;
 
 namespace Blitz
 {
-    class Arcade
+    class Arcade : public Blitz::DriveTrain
     {
         public:
-            Arcade(Blitz::Models::DriveMotors *Motors, Blitz::BlitzLogger *Logger)
+            Arcade(Blitz::Models::ArcadeInput *Input, Blitz::BlitzLogger *Logger) :
+                DriveTrain(Logger)
             {
-                this->Motors = Motors;
-                this->Logger = Logger;
+               this->Input = Input;
             }
-
-            void SetMotorDirection(int Motor, int dir);
-            void TuneF(int MotorID, double FGain);
-            void TuneP(int MotorID, double PGain);
-            void TuneI(int MotorID, double IGain);
-            void TuneD(int MotorID, double DGain);
-
-            double GetMotorOutput(int MotorID);
-
-            void Initialize(Blitz::Models::ArcadeInput *Input);
-            void Run();
-            void Close();
             
-            bool UsePID = false;
+            void Initialize() override;
+            void Drive() override;
+            void Close() override;
 
         private:
-            Blitz::BlitzLogger *Logger;
-            Blitz::Models::ArcadeInput *InputData;
-            Blitz::Models::DriveMotors *Motors;
-            int MotorDirs[4] = {1, 1, 1, 1};
-            double motorValues[4] = {0, 0, 0, 0};
+            Blitz::Models::ArcadeInput *Input;
     };
 }
