@@ -1,0 +1,46 @@
+{
+  "DriveTrain": {
+    "RampRate": 0.4,
+    "WheelRadius": 0.0889,
+    "CountsPerRevolution": 600,
+    "MaxRPM": 300,
+    "SensorIndex": 0,
+    "CTRETimeout": 30,
+    
+    "FrontLeftMotor":
+    {
+      "FrontLeftSensorPhase" : true,
+      "FrontLeftFVal": 0,
+      "FrontLeftPVal": 0,
+      "FrontLeftIVal": 0,
+      "FrontLeftDVal": 0
+    },
+    
+    "BackLeftMotor":
+    {
+      "BackLeftSensorPhase" : true,
+      "BackLeftFVal": 0,
+      "BackLeftPVal": 0,
+      "BackLeftIVal": 0,
+      "BackLeftDVal": 0
+    },
+    
+    "FrontRightMotor":
+    {
+      "FrontRightSensorPhase" : true,
+      "FrontRightFVal": 0,
+      "FrontRightPVal": 0,
+      "FrontRightIVal": 0,
+      "FrontRightDVal": 0
+    },
+    
+    "BackRightMotor":
+    {
+      "BackRightSensorPhase" : true,
+      "BackRightFVal": 0,
+      "BackRightPVal": 0,
+      "BackRightIVal": 0,
+      "BackRightDVal": 0
+    }
+  }
+}
