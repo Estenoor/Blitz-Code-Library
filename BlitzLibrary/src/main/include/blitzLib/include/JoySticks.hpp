@@ -47,6 +47,17 @@ namespace Blitz
                 bool GetLeftStickButton();
                 bool GetRightStickButton();
 
+                void EnableAButtonToggle(bool enabled);
+                void EnableBButtonToggle(bool enabled);
+                void EnableXButtonToggle(bool enabled);
+                void EnableYButtonToggle(bool enabled);
+                void EnableLeftBumperToggle(bool enabled);
+                void EnableRightBumperToggle(bool enabled);
+                void EnableSelectButtonToggle(bool enabled);
+                void EnableStartButtonToggle(bool enabled);
+                void EnableLeftStickButtonToggle(bool enabled);
+                void EnableRightStickButtonToggle(bool enabled);
+
                 double GetLeftX();
                 double GetLeftY();
                 double GetRightX();
@@ -91,6 +102,42 @@ namespace Blitz
                 bool StartButton = false;
                 bool LeftStickButton = false;
                 bool RightStickButton = false;
+
+                //Button Toggles
+                bool AButtonToggle = false;
+                bool BButtonToggle = false;
+                bool XButtonToggle = false;
+                bool YButtonToggle = false;
+                bool LeftBumperToggle = false;
+                bool RightBumperToggle = false;
+                bool SelectButtonToggle = false;
+                bool StartButtonToggle = false;
+                bool LeftStickButtonToggle = false;
+                bool RightStickButtonToggle = false;
+
+                //Previous Button States
+                bool PreAButton = false;
+                bool PreBButton = false;
+                bool PreXButton = false;
+                bool PreYButton = false;
+                bool PreLeftBumper = false;
+                bool PreRightBumper = false;
+                bool PreSelectButton = false;
+                bool PreStartButton = false;
+                bool PreLeftStickButton = false;
+                bool PreRightStickButton = false;
+
+                //Use Button Toggles
+                bool UseAButtonToggle = false;
+                bool UseBButtonToggle = false;
+                bool UseXButtonToggle = false;
+                bool UseYButtonToggle = false;
+                bool UseLeftBumperToggle = false;
+                bool UseRightBumperToggle = false;
+                bool UseSelectButtonToggle = false;
+                bool UseStartButtonToggle = false;
+                bool UseLeftStickButtonToggle = false;
+                bool UseRightStickButtonToggle = false;
 
                 //Axes
                 double LeftX = 0;
