@@ -6,26 +6,93 @@ using namespace frc;
 
 namespace Blitz
 {
+    class JoystickInterface : public frc::Joystick
+    {
+        public:
+            JoystickInterface(int port) :
+                Joystick(port)
+            {
+
+            }
+
+            virtual void update() {}
+
+        protected:
+            double RampAxis(double inputValue, double rampedValue, double center, double deadband, double rampRate);
+
+    };
+
     namespace Joysticks
     {
-        class XboxController
+        class XboxController : public Blitz::JoystickInterface
         {
             public:
-                int port;
 
-                Joystick Xbox;
+                XboxController(int port) :
+                    JoystickInterface(port)
+                {
+
+                }
+
+                void update() override;
+
+                bool GetAButton();
+                bool GetBButton();
+                bool GetXButton();
+                bool GetYButton();
+                bool GetLeftBumper();
+                bool GetRightBumper();
+                bool GetSelectButton();
+                bool GetStartButton();
+                bool GetLeftStickButton();
+                bool GetRightStickButton();
+
+                double GetLeftX();
+                double GetLeftY();
+                double GetRightX();
+                double GetRightY();
+                double GetLeftTrigger();
+                double GetRightTrigger();
+
+                void ReCenterLeftX();
+                void ReCenterLeftY();
+                void ReCenterRightX();
+                void ReCenterRightY();
+                void ReCenterLeftTrigger();
+                void ReCenterRightTrigger();
+
+                void SetUniversalDeadband(double Deadband);
+                void SetLeftXDeadband(double Deadband);
+                void SetLeftYDeadband(double Deadband);
+                void SetRightXDeadband(double Deadband);
+                void SetRightYDeadband(double Deadband);
+                void SetLeftTriggerDeadband(double Deadband);
+                void SetRightTriggerDeadband(double Deadband);
+
+                void SetUniversalRampRate(double RampRate);
+                void SetLeftXRampRate(double RampRate);
+                void SetLeftYRampRate(double RampRate);
+                void SetRightXRampRate(double RampRate);
+                void SetRightYRampRate(double RampRate);
+                void SetLeftTriggerRampRate(double RampRate);
+                void SetRightTriggerRampRate(double RampRate);
+
+
+            private:
 
                 //Buttons
-                double AButton = 0;
-                double BButton = 0;
-                double XButton = 0;
-                double YButton = 0;
-                double LeftBumper = 0;
-                double RightBumper = 0;
-                double LeftStickButton = 0;
-                double RightStickButton = 0;
+                bool AButton = false;
+                bool BButton = false;
+                bool XButton = false;
+                bool YButton = false;
+                bool LeftBumper = false;
+                bool RightBumper = false;
+                bool SelectButton = false;
+                bool StartButton = false;
+                bool LeftStickButton = false;
+                bool RightStickButton = false;
 
-                //axis
+                //Axes
                 double LeftX = 0;
                 double LeftY = 0;
                 double RightX = 0;
@@ -33,68 +100,152 @@ namespace Blitz
                 double LeftTrigger = 0;
                 double RightTrigger = 0;
 
+                //Ramped Axes
+                double LeftXRamp = 0;
+                double LeftYRamp = 0;
+                double RightXRamp = 0;
+                double RightYRamp = 0;
+                double LeftTriggerRamp = 0;
+                double RightTriggerRamp = 0;
+
+                //Axis Centers
+                double LeftXCenter = 0;
+                double LeftYCenter = 0;
+                double RightXCenter = 0;
+                double RightYCenter = 0;
+                double LeftTriggerCenter = 0;
+                double RightTriggerCenter = 0;
+
+                //Axis Deadbands
+                double LeftXDeadband = 0;
+                double LeftYDeadband = 0;
+                double RightXDeadband = 0;
+                double RightYDeadband = 0;
+                double LeftTriggerDeadband = 0;
+                double RightTriggerDeadband = 0;
+
+                //Axis Ramp Rates
+                double LeftXRampRate = 0;
+                double LeftYRampRate = 0;
+                double RightXRampRate = 0;
+                double RightYRampRate = 0;
+                double LeftTriggerRampRate = 0;
+                double RightTriggerRampRate = 0;
+
+
                 //Button ids
-                const int A_BUTTON_ID = 0;
-                const int B_BUTTON_ID = 0;
-                const int X_BUTTON_ID = 0;
-                const int Y_BUTTON_ID = 0;
-                const int LEFT_BUMPER_ID = 0;
-                const int RIGHT_BUMPER_ID = 0;
-                const int LEFT_STICK_BUTTON_ID = 0;
-                const int RIGHT_STICK_BUTTON_ID = 0;
+                const int A_BUTTON_ID = 1;
+                const int B_BUTTON_ID = 2;
+                const int X_BUTTON_ID = 3;
+                const int Y_BUTTON_ID = 4;
+                const int LEFT_BUMPER_ID = 5;
+                const int RIGHT_BUMPER_ID = 6;
+                const int SELECT_BUTTON = 7;
+                const int START_BUTTON = 8;
+                const int LEFT_STICK_BUTTON_ID = 9;
+                const int RIGHT_STICK_BUTTON_ID = 10;
 
                 //axis ids
                 const int LEFT_X_AXIS_ID = 0;
-                const int LEFT_Y_AXIS_ID = 0;
-                const int RIGHT_X_AXIS_ID = 0;
-                const int RIGHT_Y_AXIS_ID = 0;
-                const int LEFT_TRIGGER_ID = 0;
-                const int RIGHT_TRIGGER_ID = 0;
-
-                void update();
-
-                XboxController() :
-                    Xbox(0)
-                {
-
-                }
-
-                XboxController(int port):
-                    Xbox(port)
-                {
-                    this->port = port;
-                }
-
+                const int LEFT_Y_AXIS_ID = 1;
+                const int LEFT_TRIGGER_ID = 2;
+                const int RIGHT_TRIGGER_ID = 3;
+                const int RIGHT_X_AXIS_ID = 4;
+                const int RIGHT_Y_AXIS_ID = 5;
 
         };
 
-        class ThreeAxisJoystick
+        class ThreeAxisJoystick : public Blitz::JoystickInterface
         {
             public:
-                int port = 0;
 
-                Joystick ThreeAxis;
+                ThreeAxisJoystick(int port) :
+                    JoystickInterface(port)
+                {
 
+                }
+
+                void update() override;
+
+                bool GetTrigger();
+                bool GetButton2();
+                bool GetButton3();
+                bool GetButton4();
+                bool GetButton5();
+                bool GetButton6();
+                bool GetButton7();
+                bool GetButton8();
+                bool GetButton9();
+                bool GetButton10();
+                bool GetButton11();
+                bool GetButton12();
+
+                double GetXAxis();
+                double GetYAxis();
+                double GetZAxis();
+                double GetDial();
+
+                void ReCenterXAxis();
+                void ReCenterYAxis();
+                void ReCenterZAxis();
+                void ReCenterDial();
+
+                void SetUniversalDeadband(double Deadband);
+                void SetXAxisDeadband(double Deadband);
+                void SetYAxisDeadband(double Deadband);
+                void SetZAxisDeadband(double Deadband);
+                void SetDialDeadband(double Deadband);
+
+                void SetUniversalRampRate(double RampRate);
+                void SetXAxisRampRate(double RampRate);
+                void SetYAxisRampRate(double RampRate);
+                void SetZAxisRampRate(double RampRate);
+                void SetDialRampRate(double RampRate);
+
+            private:
                 //Buttons
-                double Trigger = 0;
-                double Button2 = 0;
-                double Button3 = 0;
-                double Button4 = 0;
-                double Button5 = 0;
-                double Button6 = 0;
-                double Button7 = 0;
-                double Button8 = 0;
-                double Button9 = 0;
-                double Button10 = 0;
-                double Button11 = 0;
-                double Button12= 0;
-                double DPad[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+                bool Trigger = 0;
+                bool Button2 = 0;
+                bool Button3 = 0;
+                bool Button4 = 0;
+                bool Button5 = 0;
+                bool Button6 = 0;
+                bool Button7 = 0;
+                bool Button8 = 0;
+                bool Button9 = 0;
+                bool Button10 = 0;
+                bool Button11 = 0;
+                bool Button12= 0;
 
-                //axis
+                //axes
                 double XAxis = 0;
                 double YAxis = 0;
-                double zAxis = 0;
+                double ZAxis = 0;
                 double Dial = 0;
+
+                //Ramped Axes
+                double XAxisRamp = 0;
+                double YAxisRamp = 0;
+                double ZAxisRamp = 0;
+                double DialRamp = 0;
+
+                //Axis Centers
+                double XAxisCenter = 0;
+                double YAxisCenter = 0;
+                double ZAxisCenter = 0;
+                double DialCenter = 0;
+
+                //Axis RampRates
+                double XAxisRampRate = 0;
+                double YAxisRampRate = 0;
+                double ZAxisRampRate = 0;
+                double DialRampRate = 0;
+
+                //Axis Deadbands
+                double XAxisDeadband = 0;
+                double YAxisDeadband = 0;
+                double ZAxisDeadband = 0;
+                double DialDeadband = 0;
 
                 //Button IDs
                 const int TRIGGER_ID = 1;
@@ -109,49 +260,90 @@ namespace Blitz
                 const int BUTTON10_ID = 10;
                 const int BUTTON11_ID = 11;
                 const int BUTTON12_ID = 12;
-                const int D_PAD_ID[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
                 //axis IDs
                 const int X_AXIS_ID = 0;
-                const int Y_AXIS_ID = 0;
-                const int Z_AXIS_ID = 0;
-                const int DIAL_ID = 0;
+                const int Y_AXIS_ID = 1;
+                const int Z_AXIS_ID = 2;
+                const int DIAL_ID = 3;
 
-                void update();
-
-                ThreeAxisJoystick() :
-                    ThreeAxis(0)
-                {
-
-                }
-
-                ThreeAxisJoystick(int port) :
-                    ThreeAxis(port)
-                {
-                    this->port = port; 
-                }
         };
 
-        class TwoAxisJoystick
+        class TwoAxisJoystick : public Blitz::JoystickInterface
         {
             public:
-                int port = 0;
-                Joystick TwoAxis;
+
+                TwoAxisJoystick(int port) :
+                    JoystickInterface(port)
+                {
+
+                }
+
+                void update() override;
+
+                bool GetTrigger();
+                bool GetButton2();
+                bool GetButton3();
+                bool GetButton4();
+                bool GetButton5();
+                bool GetButton6();
+                bool GetButton7();
+                bool GetButton8();
+
+                double GetXAxis();
+                double GetYAxis();
+                double GetDial();
+
+                void ReCenterXAxis();
+                void ReCenterYAxis();
+                void ReCenterDial();
+
+                void SetUniversalDeadband(double Deadband);
+                void SetXAxisDeadband(double Deadband);
+                void SetYAxisDeadband(double Deadband);
+                void SetDialDeadband(double Deadband);
+
+                void SetUniversalRampRate(double RampRate);
+                void SetXAxisRampRate(double RampRate);
+                void SetYAxisRampRate(double RampRate);
+                void SetDialRampRate(double RampRate);
+
+            private:
 
                 //Buttons
-                double Trigger = 0;
-                double Button2 = 0;
-                double Button3 = 0;
-                double Button4 = 0;
-                double Button5 = 0;
-                double Button6 = 0;
-                double Button7 = 0;
-                double Button8 = 0;
+                bool Trigger = 0;
+                bool Button2 = 0;
+                bool Button3 = 0;
+                bool Button4 = 0;
+                bool Button5 = 0;
+                bool Button6 = 0;
+                bool Button7 = 0;
+                bool Button8 = 0;
 
-                //Axis
+                //Axes
                 double XAxis = 0;
                 double YAxis = 0;
                 double Dial = 0;
+
+                //Ramped Axes
+                double XAxisRamp = 0;
+                double YAxisRamp = 0;
+                double DialRamp = 0;
+
+                //Axis Centers
+                double XAxisCenter = 0;
+                double YAxisCenter = 0;
+                double DialCenter = 0;
+
+                //Axis RampRates
+                double XAxisRampRate = 0;
+                double YAxisRampRate = 0;
+                double DialRampRate = 0;
+
+                //Axis Deadbands
+                double XAxisDeadband = 0;
+                double YAxisDeadband = 0;
+                double DialDeadband = 0;
 
                 //Button IDs
                 const int TRIGGER_ID = 1;
@@ -167,20 +359,6 @@ namespace Blitz
                 const int X_AXIS_ID = 0;
                 const int Y_AXIS_ID = 1;
                 const int DIAL_ID = 2;
-
-                void update();
-
-                TwoAxisJoystick() :
-                    TwoAxis(0)
-                {
-
-                }
-
-                TwoAxisJoystick(int port) :
-                    TwoAxis(port)
-                {
-                    this->port = port; 
-                }
 
         };   
     }

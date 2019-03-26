@@ -1,39 +1,27 @@
 #pragma once
 
-#include <frc/WPILib.h>
-
-#include "BlitzLogger.hpp"
-#include "DataTypes.hpp"
-#include "DriveReferences.hpp"
+#include "DriveTrain.hpp"
 
 using namespace std;
 using namespace frc;
 
 namespace Blitz
 {
-    class Mecanum
+    class Mecanum : public Blitz::DriveTrain
     {
-
         public:
-            Mecanum(Blitz::Models::DriveMotors *Motors,  Blitz::BlitzLogger *Logger)
+            Mecanum(Blitz::Models::MecanumInput *Input, Blitz::BlitzLogger *Logger) :
+                DriveTrain(Logger)
             {
-                this->Logger = Logger;
-                this->Motors = Motors;
+                this->Input = Input;
             }
 
-            void SetMotorDirection(int Motor, int dir);
-            void Initialize(Blitz::Models::MecanumInput *Input);
-            void Drive();
-            void Close();
-            
-            bool UsePID = false;
-            
+            void Initialize() override;
+            void Drive() override;
+            void Close() override;
             
         private:
-            Blitz::BlitzLogger *Logger; 
-            Blitz::Models::MecanumInput *InputData;
-            Blitz::Models::DriveMotors *Motors;
-            int MotorDirs[4] = {1, 1, 1, 1};
+            Blitz::Models::MecanumInput *Input;
 
     };
 }
