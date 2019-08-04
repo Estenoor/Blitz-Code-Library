@@ -10,17 +10,17 @@ namespace Blitz
     class Tank : public Blitz::DriveTrain
     {
         public:
-            Tank(Blitz::Models::TankInput *Input, Blitz::BlitzLogger *Logger) :
-                DriveTrain(Logger)
+            Tank() :
+                DriveTrain()
             {
-                this->Input = Input;
+
             }
 
-            void Initialize() override;
             void Drive() override;
+            void Drive(Blitz::Models::TankInput Input);
             void Close() override;
 
         private:
-            Blitz::Models::TankInput *Input;
+        
     };
 }
