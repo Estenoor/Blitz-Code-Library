@@ -15,19 +15,19 @@ namespace Blitz
         class DriveMotors
         {
             public:
-                TalonSRX * Motor1; // Front Left
-                TalonSRX * Motor2; // Front Right
-                TalonSRX * Motor3; // Back Left
-                TalonSRX * Motor4; // Back Right
+                TalonSRX * Motor0; // Front Left
+                TalonSRX * Motor1; // Front Right
+                TalonSRX * Motor2; // Back Left
+                TalonSRX * Motor3; // Back Right
 
                 DriveMotors() {}
 
                 DriveMotors(TalonSRX * LeftFrontMotor, TalonSRX * LeftBackMotor, TalonSRX * RightFrontMotor, TalonSRX * RightBackMotor)
                 {
-                    this->Motor1 = LeftFrontMotor;
-                    this->Motor2 = LeftBackMotor;
-                    this->Motor3 = RightFrontMotor;
-                    this->Motor4 = RightBackMotor;
+                    this->Motor0 = LeftFrontMotor;
+                    this->Motor1 = LeftBackMotor;
+                    this->Motor2 = RightFrontMotor;
+                    this->Motor3 = RightBackMotor;
                 }            
         };
 
