@@ -31,12 +31,23 @@ namespace Blitz
                 }            
         };
 
-        class BrushlessDriveMotors
+        class SparkMAXDriveMotors
         {
             public:
-                CANSparkMax * LeftFrontMotor;
-                CANSparkMax * LeftBackMotor;
-                CANSparkMax * RightFrontMotor;
+                CANSparkMax * Motor0; //Front Left
+                CANSparkMax * Motor1; //Front Right
+                CANSparkMax * Motor2; //Back Left
+                CANSparkMax * Motor3; //Back Right
+
+                SparkMAXDriveMotors() {}
+
+                SparkMAXDriveMotors(CANSparkMax * LeftFrontMotor, CANSparkMax * LeftBackMotor, CANSparkMax * RightFrontMotor, CANSparkMax * RightBackMotor)
+                {
+                    this->Motor0 = LeftFrontMotor;
+                    this->Motor1 = LeftBackMotor;
+                    this->Motor2 = RightFrontMotor;
+                    this->Motor3 = RightBackMotor;
+                }  
         };
 
         // Joystick Data for Arcade Drive
