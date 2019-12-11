@@ -10,18 +10,17 @@ namespace Blitz
     class Mecanum : public Blitz::DriveTrain
     {
         public:
-            Mecanum(Blitz::Models::MecanumInput *Input, Blitz::BlitzLogger *Logger) :
-                DriveTrain(Logger)
+            Mecanum() :
+                DriveTrain()
             {
-                this->Input = Input;
+                
             }
 
-            void Initialize() override;
             void Drive() override;
+            void Drive(Blitz::Models::MecanumInput Input);
             void Close() override;
             
         private:
-            Blitz::Models::MecanumInput *Input;
 
     };
 }

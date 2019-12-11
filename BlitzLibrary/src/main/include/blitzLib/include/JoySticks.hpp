@@ -47,6 +47,17 @@ namespace Blitz
                 bool GetLeftStickButton();
                 bool GetRightStickButton();
 
+                void EnableAButtonToggle(bool enabled);
+                void EnableBButtonToggle(bool enabled);
+                void EnableXButtonToggle(bool enabled);
+                void EnableYButtonToggle(bool enabled);
+                void EnableLeftBumperToggle(bool enabled);
+                void EnableRightBumperToggle(bool enabled);
+                void EnableSelectButtonToggle(bool enabled);
+                void EnableStartButtonToggle(bool enabled);
+                void EnableLeftStickButtonToggle(bool enabled);
+                void EnableRightStickButtonToggle(bool enabled);
+
                 double GetLeftX();
                 double GetLeftY();
                 double GetRightX();
@@ -91,6 +102,42 @@ namespace Blitz
                 bool StartButton = false;
                 bool LeftStickButton = false;
                 bool RightStickButton = false;
+
+                //Button Toggles
+                bool AButtonToggle = false;
+                bool BButtonToggle = false;
+                bool XButtonToggle = false;
+                bool YButtonToggle = false;
+                bool LeftBumperToggle = false;
+                bool RightBumperToggle = false;
+                bool SelectButtonToggle = false;
+                bool StartButtonToggle = false;
+                bool LeftStickButtonToggle = false;
+                bool RightStickButtonToggle = false;
+
+                //Previous Button States
+                bool PreAButton = false;
+                bool PreBButton = false;
+                bool PreXButton = false;
+                bool PreYButton = false;
+                bool PreLeftBumper = false;
+                bool PreRightBumper = false;
+                bool PreSelectButton = false;
+                bool PreStartButton = false;
+                bool PreLeftStickButton = false;
+                bool PreRightStickButton = false;
+
+                //Use Button Toggles
+                bool UseAButtonToggle = false;
+                bool UseBButtonToggle = false;
+                bool UseXButtonToggle = false;
+                bool UseYButtonToggle = false;
+                bool UseLeftBumperToggle = false;
+                bool UseRightBumperToggle = false;
+                bool UseSelectButtonToggle = false;
+                bool UseStartButtonToggle = false;
+                bool UseLeftStickButtonToggle = false;
+                bool UseRightStickButtonToggle = false;
 
                 //Axes
                 double LeftX = 0;
@@ -180,6 +227,19 @@ namespace Blitz
                 bool GetButton11();
                 bool GetButton12();
 
+                void EnableTriggerToggle(bool enabled);
+                void EnableButton2Toggle(bool enabled);
+                void EnableButton3Toggle(bool enabled);
+                void EnableButton4Toggle(bool enabled);
+                void EnableButton5Toggle(bool enabled);
+                void EnableButton6Toggle(bool enabled);
+                void EnableButton7Toggle(bool enabled);
+                void EnableButton8Toggle(bool enabled);
+                void EnableButton9Toggle(bool enabled);
+                void EnableButton10Toggle(bool enabled);
+                void EnableButton11Toggle(bool enabled);
+                void EnableButton12Toggle(bool enabled);
+
                 double GetXAxis();
                 double GetYAxis();
                 double GetZAxis();
@@ -204,18 +264,61 @@ namespace Blitz
 
             private:
                 //Buttons
-                bool Trigger = 0;
-                bool Button2 = 0;
-                bool Button3 = 0;
-                bool Button4 = 0;
-                bool Button5 = 0;
-                bool Button6 = 0;
-                bool Button7 = 0;
-                bool Button8 = 0;
-                bool Button9 = 0;
-                bool Button10 = 0;
-                bool Button11 = 0;
-                bool Button12= 0;
+                bool Trigger = false;
+                bool Button2 = false;
+                bool Button3 = false;
+                bool Button4 = false;
+                bool Button5 = false;
+                bool Button6 = false;
+                bool Button7 = false;
+                bool Button8 = false;
+                bool Button9 = false;
+                bool Button10 = false;
+                bool Button11 = false;
+                bool Button12 = false;
+
+                //Button Toggles
+                bool TriggerToggle = false;
+                bool Button2Toggle = false;
+                bool Button3Toggle = false;
+                bool Button4Toggle = false;
+                bool Button5Toggle = false;
+                bool Button6Toggle = false;
+                bool Button7Toggle = false;
+                bool Button8Toggle = false;
+                bool Button9Toggle = false;
+                bool Button10Toggle = false;
+                bool Button11Toggle = false;
+                bool Button12Toggle = false;
+
+                
+                //Previous Button States
+                bool PreTrigger = false;
+                bool PreButton2 = false;
+                bool PreButton3 = false;
+                bool PreButton4 = false;
+                bool PreButton5 = false;
+                bool PreButton6 = false;
+                bool PreButton7 = false;
+                bool PreButton8 = false;
+                bool PreButton9 = false;
+                bool PreButton10 = false;
+                bool PreButton11 = false;
+                bool PreButton12 = false;
+                
+                //Use Button Toggles
+                bool UseTriggerToggle = false;
+                bool UseButton2Toggle = false;
+                bool UseButton3Toggle = false;
+                bool UseButton4Toggle = false;
+                bool UseButton5Toggle = false;
+                bool UseButton6Toggle = false;
+                bool UseButton7Toggle = false;
+                bool UseButton8Toggle = false;
+                bool UseButton9Toggle = false;
+                bool UseButton10Toggle = false;
+                bool UseButton11Toggle = false;
+                bool UseButton12Toggle = false;
 
                 //axes
                 double XAxis = 0;
@@ -290,6 +393,15 @@ namespace Blitz
                 bool GetButton7();
                 bool GetButton8();
 
+                void EnableTriggerToggle(bool enabled);
+                void EnableButton2Toggle(bool enabled);
+                void EnableButton3Toggle(bool enabled);
+                void EnableButton4Toggle(bool enabled);
+                void EnableButton5Toggle(bool enabled);
+                void EnableButton6Toggle(bool enabled);
+                void EnableButton7Toggle(bool enabled);
+                void EnableButton8Toggle(bool enabled);
+
                 double GetXAxis();
                 double GetYAxis();
                 double GetDial();
@@ -311,14 +423,45 @@ namespace Blitz
             private:
 
                 //Buttons
-                bool Trigger = 0;
-                bool Button2 = 0;
-                bool Button3 = 0;
-                bool Button4 = 0;
-                bool Button5 = 0;
-                bool Button6 = 0;
-                bool Button7 = 0;
-                bool Button8 = 0;
+                bool Trigger = false;
+                bool Button2 = false;
+                bool Button3 = false;
+                bool Button4 = false;
+                bool Button5 = false;
+                bool Button6 = false;
+                bool Button7 = false;
+                bool Button8 = false;
+
+                //Button Toggles
+                bool TriggerToggle = false;
+                bool Button2Toggle = false;
+                bool Button3Toggle = false;
+                bool Button4Toggle = false;
+                bool Button5Toggle = false;
+                bool Button6Toggle = false;
+                bool Button7Toggle = false;
+                bool Button8Toggle = false;
+
+                
+                //Previous Button States
+                bool PreTrigger = false;
+                bool PreButton2 = false;
+                bool PreButton3 = false;
+                bool PreButton4 = false;
+                bool PreButton5 = false;
+                bool PreButton6 = false;
+                bool PreButton7 = false;
+                bool PreButton8 = false;
+                
+                //Use Button Toggles
+                bool UseTriggerToggle = false;
+                bool UseButton2Toggle = false;
+                bool UseButton3Toggle = false;
+                bool UseButton4Toggle = false;
+                bool UseButton5Toggle = false;
+                bool UseButton6Toggle = false;
+                bool UseButton7Toggle = false;
+                bool UseButton8Toggle = false;
 
                 //Axes
                 double XAxis = 0;

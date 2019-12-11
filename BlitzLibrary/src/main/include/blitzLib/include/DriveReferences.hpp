@@ -25,6 +25,12 @@ namespace Blitz
 
             static constexpr double TIMEOUT = 30;
             static constexpr int SENSOR_INDEX = 0;
+            
+            static constexpr bool MOTOR0_SENSOR_PHASE = true;
+            static constexpr double MOTOR0_kF = 3;
+            static constexpr double MOTOR0_kP = .25;
+            static constexpr double MOTOR0_kI = 0;
+            static constexpr double MOTOR0_kD = 0;
 
             static constexpr bool MOTOR1_SENSOR_PHASE = true;
             static constexpr double MOTOR1_kF = 3;
@@ -43,12 +49,6 @@ namespace Blitz
             static constexpr double MOTOR3_kP = .25;
             static constexpr double MOTOR3_kI = 0;
             static constexpr double MOTOR3_kD = 0;
-
-            static constexpr bool MOTOR4_SENSOR_PHASE = true;
-            static constexpr double MOTOR4_kF = 3;
-            static constexpr double MOTOR4_kP = .25;
-            static constexpr double MOTOR4_kI = 0;
-            static constexpr double MOTOR4_kD = 0;
 
         private:
 

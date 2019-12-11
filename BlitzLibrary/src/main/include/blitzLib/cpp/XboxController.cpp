@@ -2,6 +2,18 @@
 
 void Blitz::Joysticks::XboxController::update()
 {
+    //update previous states
+    PreAButton = AButton;
+    PreBButton = BButton;
+    PreXButton = XButton;
+    PreYButton = YButton;
+    PreLeftBumper = LeftBumper;
+    PreRightBumper = RightBumper;
+    PreSelectButton = SelectButton;
+    PreStartButton = StartButton;
+    PreLeftStickButton = LeftStickButton;
+    PreRightStickButton = RightStickButton;
+
     //Update Buttons
     AButton = GetRawButton(A_BUTTON_ID);
     BButton = GetRawButton(B_BUTTON_ID);
@@ -19,57 +31,227 @@ void Blitz::Joysticks::XboxController::update()
     RightY = GetRawAxis(RIGHT_Y_AXIS_ID);
     LeftTrigger = GetRawAxis(LEFT_TRIGGER_ID);
     RightTrigger = GetRawAxis(RIGHT_TRIGGER_ID);
+
+    if(AButton && !PreAButton)
+    {
+        AButtonToggle = !AButtonToggle;
+    }
+
+    if(BButton && !PreBButton)
+    {
+        BButtonToggle = !BButtonToggle;
+    }
+
+    if(XButton && !PreXButton)
+    {
+        XButtonToggle = !XButtonToggle;
+    }
+
+    if(YButton && !PreYButton)
+    {
+        YButtonToggle = !YButtonToggle;
+    }
+
+    if(LeftBumper && !PreLeftBumper)
+    {
+        LeftBumperToggle = !LeftBumperToggle;
+    }
+
+    if(RightBumper && !PreRightBumper)
+    {
+        RightBumperToggle = !RightBumperToggle;
+    }
+
+    if(SelectButton && !PreSelectButton)
+    {
+        SelectButtonToggle = !SelectButtonToggle;
+    }
+
+    if(StartButton && !PreStartButton)
+    {
+        StartButtonToggle = !StartButtonToggle;
+    }
+
+    if(LeftStickButton && !PreLeftStickButton)
+    {
+        LeftStickButtonToggle = !LeftStickButtonToggle;
+    }
+
+    if(RightStickButton && !PreRightStickButton)
+    {
+        RightStickButtonToggle = !RightStickButtonToggle;
+    }
     
 }
 
 bool Blitz::Joysticks::XboxController::GetAButton()
 {
-    return AButton;
+    if(UseAButtonToggle)
+    {
+        return AButtonToggle;
+    }
+    else
+    {
+        return AButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetBButton()
 {
-    return BButton;
+    if(UseBButtonToggle)
+    {
+        return BButtonToggle;
+    }
+    else
+    {
+        return BButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetXButton()
 {
-    return XButton;
+    if(UseXButtonToggle)
+    {
+        return XButtonToggle;
+    }
+    else
+    {
+        return XButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetYButton()
 {
-    return YButton;
+    if(UseYButtonToggle)
+    {
+        return YButtonToggle;
+    }
+    else
+    {
+        return YButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetLeftBumper()
 {
-    return LeftBumper;
+    if(UseLeftBumperToggle)
+    {
+        return LeftBumperToggle;
+    }
+    else
+    {
+        return LeftBumper;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetRightBumper()
 {
-    return RightBumper;
+    if(UseRightBumperToggle)
+    {
+        return RightBumperToggle;
+    }
+    else
+    {
+        return RightBumper;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetSelectButton()
 {
-    return SelectButton;
+    if(UseSelectButtonToggle)
+    {
+        return SelectButtonToggle;
+    }
+    else
+    {
+        return SelectButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetStartButton()
 {
-    return StartButton;
+    if(UseStartButtonToggle)
+    {
+        return StartButtonToggle;
+    }
+    else
+    {
+        return StartButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetLeftStickButton()
 {
-    return LeftStickButton;
+    if(UseLeftStickButtonToggle)
+    {
+        return LeftStickButtonToggle;
+    }
+    else
+    {
+        return LeftStickButton;
+    }
 }
 
 bool Blitz::Joysticks::XboxController::GetRightStickButton()
 {
-    return RightStickButton;
+    if(UseRightStickButtonToggle)
+    {
+        return RightStickButtonToggle;
+    }
+    else
+    {
+        return RightStickButton;
+    }
+}
+
+void Blitz::Joysticks::XboxController::EnableAButtonToggle(bool enabled)
+{
+    UseAButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableBButtonToggle(bool enabled)
+{
+    UseBButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableXButtonToggle(bool enabled)
+{
+    UseXButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableYButtonToggle(bool enabled)
+{
+    UseYButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableLeftBumperToggle(bool enabled)
+{
+    UseLeftBumperToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableRightBumperToggle(bool enabled)
+{
+    UseRightBumperToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableSelectButtonToggle(bool enabled)
+{
+    UseSelectButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableStartButtonToggle(bool enabled)
+{
+    UseStartButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableLeftStickButtonToggle(bool enabled)
+{
+    UseLeftStickButtonToggle = enabled;
+}
+
+void Blitz::Joysticks::XboxController::EnableRightStickButtonToggle(bool enabled)
+{
+    UseRightStickButtonToggle = enabled;
 }
 
 double Blitz::Joysticks::XboxController::GetLeftX()
