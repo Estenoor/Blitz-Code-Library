@@ -12,7 +12,7 @@ namespace Blitz
     class DriveTrain
     {
         public:
-            DriveTrain(Blitz::BlitzLogger *Logger);
+            DriveTrain();
 
             void SetMotorDirection(int Motor, int dir);
             double GetMotorOutput(int MotorID);
@@ -23,12 +23,11 @@ namespace Blitz
             void TuneI(int MotorID, double IGain);
             void TuneD(int MotorID, double DGain);
 
-            virtual void Initialize() {}
+            void Initialize();
             virtual void Drive() {}
             virtual void Close() {}
 
         protected:
-            Blitz::BlitzLogger *Logger;
             Blitz::Models::DriveMotors Motors;
             
             int MotorDirs[4] = {1, 1, 1, 1};
