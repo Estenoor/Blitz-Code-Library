@@ -15,5 +15,10 @@ class Robot : public frc::SampleRobot
         void Test() override;
 
     private:
+        Blitz::Joysticks::ThreeAxisJoystick ThreeAxis;
+        Blitz::Joysticks::TwoAxisJoystick TwoAxis;
+        Blitz::Joysticks::XboxController Xbox;
+
+        bool toggles = false;
   
 };

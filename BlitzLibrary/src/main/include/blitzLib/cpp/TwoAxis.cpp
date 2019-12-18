@@ -68,7 +68,7 @@ void Blitz::Joysticks::TwoAxisJoystick::update()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetTrigger()
+bool Blitz::Joysticks::TwoAxisJoystick::GetTrigger()
 {
     if(UseTriggerToggle)
     {
@@ -80,7 +80,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetTrigger()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton2()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton2()
 {
     if(UseButton2Toggle)
     {
@@ -92,7 +92,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton2()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton3()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton3()
 {
     if(UseButton3Toggle)
     {
@@ -104,7 +104,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton3()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton4()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton4()
 {
     if(UseButton4Toggle)
     {
@@ -116,7 +116,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton4()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton5()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton5()
 {
     if(UseButton5Toggle)
     {
@@ -128,7 +128,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton5()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton6()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton6()
 {
     if(UseButton6Toggle)
     {
@@ -140,7 +140,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton6()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton7()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton7()
 {
     if(UseButton7Toggle)
     {
@@ -152,7 +152,7 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton7()
     }
 }
 
-bool Blitz::Joysticks::ThreeAxisJoystick::GetButton8()
+bool Blitz::Joysticks::TwoAxisJoystick::GetButton8()
 {
     if(UseButton8Toggle)
     {
@@ -164,42 +164,42 @@ bool Blitz::Joysticks::ThreeAxisJoystick::GetButton8()
     }
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableTriggerToggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableTriggerToggle(bool enabled)
 {
     UseTriggerToggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton2Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton2Toggle(bool enabled)
 {
     UseButton2Toggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton3Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton3Toggle(bool enabled)
 {
     UseButton3Toggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton4Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton4Toggle(bool enabled)
 {
     UseButton4Toggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton5Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton5Toggle(bool enabled)
 {
     UseButton5Toggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton6Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton6Toggle(bool enabled)
 {
     UseButton6Toggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton7Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton7Toggle(bool enabled)
 {
     UseButton7Toggle = enabled;
 }
 
-void Blitz::Joysticks::ThreeAxisJoystick::EnableButton8Toggle(bool enabled)
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton8Toggle(bool enabled)
 {
     UseButton8Toggle = enabled;
 }
