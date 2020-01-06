@@ -6,24 +6,16 @@
 #include "DataTypes.hpp"
 #include "DriveReferences.hpp"
 #include "BlitzLogger.hpp"
-#include "Arcade.hpp"
-#include "Mecanum.hpp"
-
-using namespace std;
-using namespace frc;
 
 namespace Blitz
 {
-    class Octocanum
+    class DriveTrain
     {
         public:
-            Octocanum() :
-                Solenoid(0),
-                comp(0)
-            {
+            DriveTrain();
 
-            }
             void SetMotorDirection(int Motor, int dir);
+            double GetMotorSetPoint(int MotorID);
             double GetMotorOutput(int MotorID);
 
             void EnablePID(bool enabled);
@@ -33,14 +25,19 @@ namespace Blitz
             void TuneD(int MotorID, double DGain);
 
             void Initialize();
-            void Drive();
-            void Drive(Blitz::Models::OctocanumInput Input);
-            void Close();
+            virtual void Drive() {}
+            virtual void Close() {}
+
+        protected:
+            Blitz::Models::DriveMotors Motors;
+            
+            int MotorDirs[4] = {1, 1, 1, 1};
+            double motorValues[4] = {0, 0, 0, 0};
+            int NumOfMotors = 4;
+            bool usePID = false;
 
         private:
-            Blitz::Arcade ArcadeDrive;
-            Blitz::Mecanum MecanumDrive;
-            frc::Compressor comp;
-            frc::Solenoid Solenoid;
+            TalonSRX LeftFrontMotor, LeftBackMotor, RightFrontMotor, RightBackMotor;
+
     };
 }

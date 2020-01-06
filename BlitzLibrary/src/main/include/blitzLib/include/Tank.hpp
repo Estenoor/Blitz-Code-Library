@@ -1,44 +1,26 @@
 #pragma once
 
-#include <frc/WPILib.h>
-
-#include "DataTypes.hpp"
-#include "BlitzLogger.hpp"
-#include "DriveReferences.hpp"
+#include "DriveTrain.hpp"
 
 using namespace std;
 using namespace frc;
 
 namespace Blitz
 {
-    class Tank
+    class Tank : public Blitz::DriveTrain
     {
         public:
-            Tank(Blitz::Models::DriveMotors *Motors,  Blitz::BlitzLogger *Logger)
+            Tank() :
+                DriveTrain()
             {
-                this->Logger = Logger;
-                this->Motors = Motors;
+
             }
 
-            void SetMotorDirection(int Motor, int dir);
-            void TuneF(int MotorID, double FGain);
-            void TuneP(int MotorID, double PGain);
-            void TuneI(int MotorID, double IGain);
-            void TuneD(int MotorID, double DGain);
-
-            double GetMotorOutput(int MotorID);
-
-            void Initialize(Blitz::Models::TankInput *Input);
-            void Run();
-            void Close();
-            
-            bool UsePID = false;
+            void Drive() override;
+            void Drive(Blitz::Models::TankInput Input);
+            void Close() override;
 
         private:
-            Blitz::BlitzLogger *Logger;
-            Blitz::Models::TankInput *InputData;
-            Blitz::Models::DriveMotors *Motors;
-            int MotorDirs[4] = {1, 1, 1, 1};
-            double motorValues[4] = {0, 0, 0, 0};
+        
     };
 }

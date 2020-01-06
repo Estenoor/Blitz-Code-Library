@@ -5,6 +5,8 @@
  *      Author: Sam
  */
 
+//DEPRICATED because IDK how the hell it works or if it works
+
 #pragma once
 
 #include <iostream>
