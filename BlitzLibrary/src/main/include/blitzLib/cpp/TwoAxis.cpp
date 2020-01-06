@@ -2,6 +2,16 @@
 
 void Blitz::Joysticks::TwoAxisJoystick::update()
 {
+    //update previous states
+    PreTrigger = Trigger;
+    PreButton2 = Button2;
+    PreButton3 = Button3;
+    PreButton4 = Button4;
+    PreButton5 = Button5;
+    PreButton6 = Button6;
+    PreButton7 = Button7;
+    PreButton8 = Button8;
+
     //Update Buttons
     Trigger = GetRawButton(TRIGGER_ID);
     Button2 = GetRawButton(BUTTON2_ID);
@@ -16,46 +26,182 @@ void Blitz::Joysticks::TwoAxisJoystick::update()
     XAxis = GetRawAxis(X_AXIS_ID);
     YAxis = GetRawAxis(Y_AXIS_ID);
     Dial = GetRawAxis(DIAL_ID);
+
+    if(Trigger && !PreTrigger)
+    {
+        TriggerToggle = !TriggerToggle;
+    }
+
+    if(Button2 && !PreButton2)
+    {
+        Button2Toggle = !Button2Toggle;
+    }
+
+    if(Button3 && !PreButton3)
+    {
+        Button3Toggle = !Button3Toggle;
+    }
+
+    if(Button4 && !PreButton4)
+    {
+        Button4Toggle = !Button4Toggle;
+    }
+
+    if(Button5 && !PreButton5)
+    {
+        Button5Toggle = !Button5Toggle;
+    }
+
+    if(Button6 && !PreButton6)
+    {
+        Button6Toggle = !Button6Toggle;
+    }
+
+    if(Button7 && !PreButton7)
+    {
+        Button7Toggle = !Button7Toggle;
+    }
+
+    if(Button8 && !PreButton8)
+    {
+        Button8Toggle = !Button8Toggle;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetTrigger()
 {
-    return Trigger;
+    if(UseTriggerToggle)
+    {
+        return TriggerToggle;
+    }
+    else
+    {
+        return Trigger;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton2()
 {
-    return Button2;
+    if(UseButton2Toggle)
+    {
+        return Button2Toggle;
+    }
+    else
+    {
+        return Button2;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton3()
 {
-    return Button3;
+    if(UseButton3Toggle)
+    {
+        return Button3Toggle;
+    }
+    else
+    {
+        return Button3;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton4()
 {
-    return Button4;
+    if(UseButton4Toggle)
+    {
+        return Button4Toggle;
+    }
+    else
+    {
+        return Button4;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton5()
 {
-    return Button5;
+    if(UseButton5Toggle)
+    {
+        return Button5Toggle;
+    }
+    else
+    {
+        return Button5;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton6()
 {
-    return Button6;
+    if(UseButton6Toggle)
+    {
+        return Button6Toggle;
+    }
+    else
+    {
+        return Button6;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton7()
 {
-    return Button7;
+    if(UseButton7Toggle)
+    {
+        return Button7Toggle;
+    }
+    else
+    {
+        return Button7;
+    }
 }
 
 bool Blitz::Joysticks::TwoAxisJoystick::GetButton8()
 {
-    return Button8;
+    if(UseButton8Toggle)
+    {
+        return Button8Toggle;
+    }
+    else
+    {
+        return Button8;
+    }
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableTriggerToggle(bool enabled)
+{
+    UseTriggerToggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton2Toggle(bool enabled)
+{
+    UseButton2Toggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton3Toggle(bool enabled)
+{
+    UseButton3Toggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton4Toggle(bool enabled)
+{
+    UseButton4Toggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton5Toggle(bool enabled)
+{
+    UseButton5Toggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton6Toggle(bool enabled)
+{
+    UseButton6Toggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton7Toggle(bool enabled)
+{
+    UseButton7Toggle = enabled;
+}
+
+void Blitz::Joysticks::TwoAxisJoystick::EnableButton8Toggle(bool enabled)
+{
+    UseButton8Toggle = enabled;
 }
 
 double Blitz::Joysticks::TwoAxisJoystick::GetXAxis()

@@ -15,9 +15,24 @@ void Blitz::DriveTrain::SetMotorDirection(int Motor, int dir)
     MotorDirs[Motor] = dir;
 }
 
-double Blitz::DriveTrain::GetMotorOutput(int MotorID)
+double Blitz::DriveTrain::GetMotorSetPoint(int MotorID)
 {
     return motorValues[MotorID];
+}
+
+double Blitz::DriveTrain::GetMotorOutput(int MotorID)
+{
+    switch(MotorID)
+    {
+        case 0:
+            return Motors.Motor0->GetSelectedSensorVelocity(0);
+        case 1 :
+            return Motors.Motor1->GetSelectedSensorVelocity(0);
+        case 2 :
+            return Motors.Motor2->GetSelectedSensorVelocity(0);
+        case 3 :
+            return Motors.Motor3->GetSelectedSensorVelocity(0);
+    }
 }
 
 void Blitz::DriveTrain::EnablePID(bool Enabled)

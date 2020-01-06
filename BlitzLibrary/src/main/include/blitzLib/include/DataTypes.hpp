@@ -57,7 +57,7 @@ namespace Blitz
                 double YValue; // Speed
                 double ZValue; // Rotation
 
-                ArcadeInput(double YValue, double XValue)
+                ArcadeInput(double YValue, double ZValue)
                 {
                     this->YValue = YValue;
                     this->ZValue = ZValue;

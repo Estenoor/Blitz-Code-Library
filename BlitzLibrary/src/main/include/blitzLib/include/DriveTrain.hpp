@@ -15,6 +15,7 @@ namespace Blitz
             DriveTrain();
 
             void SetMotorDirection(int Motor, int dir);
+            double GetMotorSetPoint(int MotorID);
             double GetMotorOutput(int MotorID);
 
             void EnablePID(bool enabled);
