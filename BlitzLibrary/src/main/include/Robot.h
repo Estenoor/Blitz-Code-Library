@@ -20,5 +20,7 @@ class Robot : public frc::SampleRobot
         Blitz::Joysticks::XboxController Xbox;
 
         bool toggles = false;
+
+        Blitz::Mecanum DriveTrain;
   
 };

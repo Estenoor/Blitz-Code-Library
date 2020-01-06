@@ -10,10 +10,10 @@ void Blitz::Arcade::Drive(Blitz::Models::ArcadeInput Input)
     
     if(usePID)
     {
-        motorValues[0] = (Input.YValue + Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-        motorValues[1] = (Input.YValue + Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-        motorValues[2] = (Input.YValue - Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-        motorValues[3] = (Input.YValue - Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[0] = (Input.YValue - Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[1] = (Input.YValue - Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[2] = (Input.YValue + Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
+        motorValues[3] = (Input.YValue + Input.ZValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
 
         double maxMagnitude = 0;
 
@@ -42,10 +42,10 @@ void Blitz::Arcade::Drive(Blitz::Models::ArcadeInput Input)
     }
     else
     {
-        motorValues[0] = (Input.YValue + Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-        motorValues[1] = (Input.YValue + Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-        motorValues[2] = (Input.YValue - Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-        motorValues[3] = (Input.YValue - Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[0] = (Input.YValue - Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[1] = (Input.YValue - Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[2] = (Input.YValue + Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
+        motorValues[3] = (Input.YValue + Input.ZValue) / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
 
         double maxMagnitude = 0;
 

@@ -4,22 +4,36 @@ double Blitz::JoystickInterface::RampAxis(double inputValue, double rampedValue,
 {
     double expectedValue = inputValue + center;
 
-    if(abs(abs(expectedValue) - abs(rampedValue)) <= rampRate)
+    //return 0 if value is within deadband
+    if(fabs(expectedValue) < deadband)
     {
-        rampedValue = expectedValue;
-    }
-    else if(rampedValue < expectedValue)
-    {
-        expectedValue += rampRate;
-    }
-    else if(rampedValue > expectedValue)
-    {
-        expectedValue -= rampRate;
+        return 0;
     }
 
-    if(expectedValue < deadband)
+    //increase rampedValue if it is less than expectedValue
+    if(rampedValue < expectedValue)
     {
-        rampedValue = 0;
+        if((expectedValue - rampedValue) < rampRate)
+        {
+            rampedValue = expectedValue;
+        }
+        else
+        {
+            rampedValue += rampRate;
+        }
+    }
+
+    //decrease rampedValue if it is greater than expectedValue
+    if(rampedValue > expectedValue)
+    {
+        if((rampedValue - expectedValue) < rampRate)
+        {
+            rampedValue = expectedValue;
+        }
+        else
+        {
+            rampedValue -= rampRate;
+        }
     }
 
     return rampedValue;

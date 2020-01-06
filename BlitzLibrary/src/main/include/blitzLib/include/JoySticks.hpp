@@ -172,12 +172,12 @@ namespace Blitz
                 double RightTriggerDeadband = 0;
 
                 //Axis Ramp Rates
-                double LeftXRampRate = 0;
-                double LeftYRampRate = 0;
-                double RightXRampRate = 0;
-                double RightYRampRate = 0;
-                double LeftTriggerRampRate = 0;
-                double RightTriggerRampRate = 0;
+                double LeftXRampRate = 1;
+                double LeftYRampRate = 1;
+                double RightXRampRate = 1;
+                double RightYRampRate = 1;
+                double LeftTriggerRampRate = 1;
+                double RightTriggerRampRate = 1;
 
 
                 //Button ids
@@ -339,10 +339,10 @@ namespace Blitz
                 double DialCenter = 0;
 
                 //Axis RampRates
-                double XAxisRampRate = 0;
-                double YAxisRampRate = 0;
-                double ZAxisRampRate = 0;
-                double DialRampRate = 0;
+                double XAxisRampRate = 1;
+                double YAxisRampRate = 1;
+                double ZAxisRampRate = 1;
+                double DialRampRate = 1;
 
                 //Axis Deadbands
                 double XAxisDeadband = 0;
@@ -479,9 +479,9 @@ namespace Blitz
                 double DialCenter = 0;
 
                 //Axis RampRates
-                double XAxisRampRate = 0;
-                double YAxisRampRate = 0;
-                double DialRampRate = 0;
+                double XAxisRampRate = 1;
+                double YAxisRampRate = 1;
+                double DialRampRate = 1;
 
                 //Axis Deadbands
                 double XAxisDeadband = 0;
