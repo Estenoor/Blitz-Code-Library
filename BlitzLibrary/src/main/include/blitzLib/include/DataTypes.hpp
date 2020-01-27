@@ -1,7 +1,6 @@
 #pragma once
 
 #include <frc/WPILib.h>
-#include <ctre/Phoenix.h>
 #include <rev/CANSparkMax.h>
 
 using namespace frc;
@@ -11,65 +10,6 @@ namespace Blitz
 {
     namespace Models 
     { 
-        //The 4 Motors For the Drive Train
-        class DriveMotors
-        {
-            public:
-                TalonSRX * Motor0; // Front Left
-                TalonSRX * Motor1; // Front Right
-                TalonSRX * Motor2; // Back Left
-                TalonSRX * Motor3; // Back Right
-
-                DriveMotors() {}
-
-                DriveMotors(TalonSRX * LeftFrontMotor, TalonSRX * LeftBackMotor, TalonSRX * RightFrontMotor, TalonSRX * RightBackMotor)
-                {
-                    this->Motor0 = LeftFrontMotor;
-                    this->Motor1 = LeftBackMotor;
-                    this->Motor2 = RightFrontMotor;
-                    this->Motor3 = RightBackMotor;
-                }            
-        };
-
-        class SparkMAXDriveMotors
-        {
-            public:
-                CANSparkMax * Motor0; //Front Left
-                CANSparkMax * Motor1; //Front Right
-                CANSparkMax * Motor2; //Back Left
-                CANSparkMax * Motor3; //Back Right
-
-                SparkMAXDriveMotors() {}
-
-                SparkMAXDriveMotors(CANSparkMax * LeftFrontMotor, CANSparkMax * LeftBackMotor, CANSparkMax * RightFrontMotor, CANSparkMax * RightBackMotor)
-                {
-                    this->Motor0 = LeftFrontMotor;
-                    this->Motor1 = LeftBackMotor;
-                    this->Motor2 = RightFrontMotor;
-                    this->Motor3 = RightBackMotor;
-                }  
-        };
-
-        // Joystick Data for Arcade Drive
-        class ArcadeInput
-        {
-            public:
-                double YValue; // Speed
-                double ZValue; // Rotation
-
-                ArcadeInput(double YValue, double ZValue)
-                {
-                    this->YValue = YValue;
-                    this->ZValue = ZValue;
-                }
-
-                ArcadeInput()
-                {
-                    YValue = 0;
-                    ZValue = 0;
-                }
-        };
-
         // Joystick Data for Tank Drive
         class TankInput
         {
