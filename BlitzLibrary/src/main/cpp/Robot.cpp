@@ -55,13 +55,11 @@ void Robot::AutonomousPeriodic()
 {
   Xbox.update();
 
-  double XValue = Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND * Xbox.GetLeftX();
-  double YValue = Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND * Xbox.GetLeftY();
-  double ZValue = Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND * Xbox.GetRightX();
+  double XValue = Xbox.GetLeftX();
+  double YValue = Xbox.GetLeftY();
+  double ZValue = Xbox.GetRightX();
 
-  Blitz::Models::MecanumInput Input = Blitz::Models::MecanumInput(XValue, YValue, ZValue);
-
-  DriveTrain.Drive(Input);
+  DriveTrain.Drive(XValue, YValue, ZValue);
 
 
   SmartDashboard::PutNumber("DriveMotor 1 Speed", DriveTrain.GetMotorOutput(0));

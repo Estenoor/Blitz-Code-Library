@@ -17,8 +17,7 @@ namespace Blitz
             }
 
             void Drive() override;
-            void Drive(Blitz::Models::MecanumInput Input);
-            void Close() override;
+            void Drive(double x, double y, double z);
             
         private:
 
