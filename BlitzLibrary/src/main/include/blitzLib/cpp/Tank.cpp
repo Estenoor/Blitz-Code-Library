@@ -1,83 +1,50 @@
 #include "Tank.hpp"
+
 void Blitz::Tank::Drive()
 {
-    Drive(Blitz::Models::TankInput(0, 0));
+    Drive(0, 0);
 }
 
-void Blitz::Tank::Drive(Blitz::Models::TankInput Input)
+void Blitz::Tank::Drive(double left, double right)
 {
+    motorValues[0] = (left);
+    motorValues[1] = (left);
+    motorValues[2] = (right);
+    motorValues[3] = (right);
+
+    double maxMagnitude = 0;
+
+    for (double checkValue : motorValues)
+    {
+        checkValue = std::fabs(checkValue);
+
+        if (maxMagnitude < checkValue)
+        {
+            maxMagnitude = checkValue;
+        }
+    }
+
+    if (maxMagnitude > DriveReference::MAX_OUPUT)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            motorValues[i] = motorValues[i] / maxMagnitude;
+        }
+    }
+
 
     if(usePID)
     {
-        motorValues[0] = (Input.LeftValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-        motorValues[1] = (Input.LeftValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-        motorValues[2] = (Input.RightValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-        motorValues[3] = (Input.RightValue) * Blitz::DriveReference::ENCODER_UNITS_PER_METER / Blitz::DriveReference::SECOND_TO_HUNDERD_MILLISECOND_CONVERSION;
-
-        double maxMagnitude = 0;
-
-        for (double checkValue : motorValues)
-	    {
-            checkValue = std::fabs(checkValue);
-
-            if (maxMagnitude < checkValue)
-            {
-                maxMagnitude = checkValue;
-            }
-        }
-
-        if (maxMagnitude > Blitz::DriveReference::MAX_SPEED_COUNTS_PER_HUNDRED_MILLISECONDS)
-        {
-            for (double checkValue : motorValues)
-            {
-                checkValue = checkValue / maxMagnitude;
-            }
-        }
-
-        Motors.Motor0->Set(ControlMode::Velocity, motorValues[0] * MotorDirs[0]);
-        Motors.Motor1->Set(ControlMode::Velocity, motorValues[1] * MotorDirs[1]);
-        Motors.Motor2->Set(ControlMode::Velocity, motorValues[2] * MotorDirs[2]);
-        Motors.Motor3->Set(ControlMode::Velocity, motorValues[3] * MotorDirs[3]);
+        LeftFrontPID.SetReference(motorValues[0] * MotorDirs[0] * DriveReference::MAX_RPM, rev::ControlType::kVelocity);
+        LeftBackPID.SetReference(motorValues[1] * MotorDirs[1] * DriveReference::MAX_RPM, rev::ControlType::kVelocity);
+        RightFrontPID.SetReference(motorValues[2] * MotorDirs[2] * DriveReference::MAX_RPM, rev::ControlType::kVelocity);
+        RightBackPID.SetReference(motorValues[3] * MotorDirs[3] * DriveReference::MAX_RPM, rev::ControlType::kVelocity);
     }
     else
     {
-        motorValues[0] = Input.LeftValue / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-        motorValues[1] = Input.LeftValue / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-        motorValues[2] = Input.RightValue / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-        motorValues[3] = Input.RightValue / Blitz::DriveReference::MAX_SPEED_METERS_PER_SECOND;
-
-        double maxMagnitude = 0;
-
-        for (double checkValue : motorValues)
-	    {
-            checkValue = std::fabs(checkValue);
-
-            if (maxMagnitude < checkValue)
-            {
-                maxMagnitude = checkValue;
-            }
-        }
-
-        if (maxMagnitude > 1)
-        {
-            for (int i = 0; i < NumOfMotors; i++)
-            {
-                motorValues[i] = motorValues[i] / maxMagnitude;
-            }
-        }
-
-        Motors.Motor0->Set(ControlMode::PercentOutput, motorValues[0] * MotorDirs[0]);
-        Motors.Motor1->Set(ControlMode::PercentOutput, motorValues[1] * MotorDirs[1]);
-        Motors.Motor2->Set(ControlMode::PercentOutput, motorValues[2] * MotorDirs[2]);
-        Motors.Motor3->Set(ControlMode::PercentOutput, motorValues[3] * MotorDirs[3]);
- 
+        LeftFrontMotor.Set(motorValues[0] * MotorDirs[0]);
+        LeftBackMotor.Set(motorValues[1] * MotorDirs[1]);
+        RightFrontMotor.Set(motorValues[2] * MotorDirs[2]);
+        RightBackMotor.Set(motorValues[3] * MotorDirs[3]);
     }
-}
-
-void Blitz::Tank::Close()
-{
-    Motors.Motor0->Set(ControlMode::PercentOutput, 0);
-    Motors.Motor1->Set(ControlMode::PercentOutput, 0);
-    Motors.Motor2->Set(ControlMode::PercentOutput, 0);
-    Motors.Motor3->Set(ControlMode::PercentOutput, 0);
 }

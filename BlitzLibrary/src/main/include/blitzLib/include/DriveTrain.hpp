@@ -1,11 +1,8 @@
 #pragma once
 
-#include <frc/WPILib.h>
-#include <ctre/Phoenix.h>
+#include <rev/CANSparkMax.h>
 
-#include "DataTypes.hpp"
 #include "DriveReferences.hpp"
-#include "BlitzLogger.hpp"
 
 namespace Blitz
 {
@@ -26,18 +23,26 @@ namespace Blitz
 
             void Initialize();
             virtual void Drive() {}
-            virtual void Close() {}
 
         protected:
-            Blitz::Models::DriveMotors Motors;
-            
             int MotorDirs[4] = {1, 1, 1, 1};
             double motorValues[4] = {0, 0, 0, 0};
-            int NumOfMotors = 4;
             bool usePID = false;
 
-        private:
-            TalonSRX LeftFrontMotor, LeftBackMotor, RightFrontMotor, RightBackMotor;
+            rev::CANSparkMax LeftFrontMotor{DriveReference::LEFT_FRONT_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+            rev::CANSparkMax LeftBackMotor{DriveReference::LEFT_BACK_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+            rev::CANSparkMax RightFrontMotor{DriveReference::RIGHT_FRONT_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+            rev::CANSparkMax RightBackMotor{DriveReference::RIGHT_BACK_MOTOR_ID, rev::CANSparkMax::MotorType::kBrushless};
+
+            rev::CANPIDController LeftFrontPID = LeftFrontMotor.GetPIDController();
+            rev::CANPIDController LeftBackPID = LeftBackMotor.GetPIDController();
+            rev::CANPIDController RightFrontPID = RightFrontMotor.GetPIDController();
+            rev::CANPIDController RightBackPID = RightBackMotor.GetPIDController();
+
+            rev::CANEncoder LeftFrontEncoder = LeftFrontMotor.GetEncoder();
+            rev::CANEncoder LeftBackEncoder = LeftBackMotor.GetEncoder();
+            rev::CANEncoder RightFrontEncoder = RightFrontMotor.GetEncoder();
+            rev::CANEncoder RightBackEncoder = RightBackMotor.GetEncoder();
 
     };
 }

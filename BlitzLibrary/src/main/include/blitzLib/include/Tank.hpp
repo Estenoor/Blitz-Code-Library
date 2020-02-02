@@ -17,8 +17,7 @@ namespace Blitz
             }
 
             void Drive() override;
-            void Drive(Blitz::Models::TankInput Input);
-            void Close() override;
+            void Drive(double left, double right);
 
         private:
         
